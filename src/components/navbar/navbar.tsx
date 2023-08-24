@@ -95,7 +95,7 @@ export default function Navbar() {
           })
           .map((item: any) => item.id);
         setRequestedDocIds(reqDocIds);
-        console.log(requestedDocIds);
+        console.log("requestedDocIds", requestedDocIds);
         if (requestedUsers.length !== 0) {
           setRequestedUser(requestedUsers);
         }

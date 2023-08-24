@@ -31,7 +31,7 @@ const Feed = () => {
       const c = fetchedUsers.filter((user: any) =>
         user.followers.includes(auth.currentUser?.uid)
       );
-      console.log(c);
+      console.log("c", c);
 
       setUserData(fetchedUsers);
     });

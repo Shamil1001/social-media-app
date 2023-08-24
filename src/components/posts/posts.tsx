@@ -46,6 +46,8 @@ import {
 } from "firebase/firestore";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
+import EditPost from "@/features/edit_post";
+import CommentModal from "@/features/delete_modal";
 
 interface PostProps {
   post: any;
@@ -60,6 +62,11 @@ export default function Post({ post, documentId, userData }: PostProps) {
     onOpen: onCommentOpen,
     onClose: onCommentClose,
   } = useDisclosure();
+  const {
+    isOpen: isEditOpen,
+    onOpen: onEditOpen,
+    onClose: onEditClose,
+  } = useDisclosure();
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const [comments, setComments] = useState([]);
@@ -67,6 +74,7 @@ export default function Post({ post, documentId, userData }: PostProps) {
   const [selectedPostId, setSelectedPostId] = useState("");
   const [currentUserData, setCurrentUserData] = useState<any>();
   const [docId, setDocId] = useState("");
+
   const { colorMode, toggleColorMode } = useColorMode();
 
   const OverlayTwo = () => (
@@ -87,7 +95,6 @@ export default function Post({ post, documentId, userData }: PostProps) {
           return doc.data().displayName == auth.currentUser?.displayName;
         });
         setCurrentUserData(filteredId[0].data());
-        console.log("user", currentUserData);
         setDocId(filteredId[0].id);
       }),
 
@@ -111,9 +118,24 @@ export default function Post({ post, documentId, userData }: PostProps) {
     onClose();
   };
 
+  const handleEditPost = async (editValue: string) => {
+    console.log("IDSss", docId, selectedPostId);
+    await updateDoc(doc(db, "posts", `${documentId}`), {
+      text: editValue,
+    });
+
+    onEditClose();
+  };
+
   const handleOpenModal = (postId: string) => {
     setSelectedPostId(postId);
     onOpen();
+  };
+
+  const handleOpenEditModal = (postId: string) => {
+    setSelectedPostId(postId);
+    console.log(documentId);
+    onEditOpen();
   };
 
   useEffect(
@@ -215,35 +237,30 @@ export default function Post({ post, documentId, userData }: PostProps) {
                         <MenuItem onClick={() => handleOpenModal(post.postId)}>
                           Delete post
                         </MenuItem>
-                        <MenuItem>Edit post</MenuItem>
+                        <MenuItem
+                          onClick={() => handleOpenEditModal(post.postId)}
+                        >
+                          Edit post
+                        </MenuItem>
                       </MenuList>
                     </Menu>
                     {/* <p>{postData.text}</p> */}
 
-                    <Modal
+                    <EditPost
+                      key={post.postId + "a"}
+                      isEditOpen={isEditOpen}
+                      onEditClose={onEditClose}
+                      textValue={post.text}
+                      selectedPostId={selectedPostId}
+                      handleEditPost={handleEditPost}
+                    />
+                    <CommentModal
                       key={post.postId}
-                      isCentered
                       isOpen={isOpen}
                       onClose={onClose}
-                    >
-                      {overlay}
-                      <ModalContent>
-                        <ModalHeader>Delete modal</ModalHeader>
-                        <ModalCloseButton />
-                        <ModalBody>
-                          <p>Are you sure to delete this post?</p>
-                        </ModalBody>
-                        <ModalFooter className="flex flex-row gap-5">
-                          {/* <p>{selectedPostId}</p> */}
-                          <Button
-                            onClick={() => handleDeletePost(selectedPostId)}
-                          >
-                            Yes
-                          </Button>
-                          <Button onClick={onClose}>Cancel</Button>
-                        </ModalFooter>
-                      </ModalContent>
-                    </Modal>
+                      selectedPostId={selectedPostId}
+                      handleDeletePost={handleDeletePost}
+                    />
                   </>
                 )}
               </Flex>
