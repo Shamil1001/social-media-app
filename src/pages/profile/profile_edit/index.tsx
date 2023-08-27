@@ -61,12 +61,19 @@ export default function ProfileEdit() {
       const user = auth.currentUser;
 
       // Update display name
-      if (user !== null) {
-        await updateProfile(user, {
-          displayName: currentUserData.displayName,
-          email: currentUserData.email,
-        });
+
+      if (!user) {
+        console.error("User is not authenticated");
+        return;
       }
+
+      const profileUpdates = {
+        displayName: currentUserData.displayName || null,
+        email: currentUserData.email || null,
+        // Add other properties like photoURL if needed
+      };
+
+      await updateProfile(user, profileUpdates);
 
       await updateDoc(doc(db, "users", `${userDocId}`), {
         displayName: currentUserData.displayName,
@@ -84,7 +91,7 @@ export default function ProfileEdit() {
     }
   };
 
-  const postUserChange = async (postId) => {
+  const postUserChange = async (postId: any) => {
     await updateDoc(doc(db, "posts", `${postId}`), {
       displayName: currentUserData.displayName,
       email: currentUserData.email,
