@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 import type { MenuProps, MenuTheme } from "antd";
 import { Button, Menu, Switch } from "antd";
+// import "../../styles/CustomTheme.css";
 
 //react-icons
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -37,7 +38,7 @@ function getItem(
 }
 
 const Sidebar: FunctionComponent<SidebarProps> = () => {
-  const [theme, setTheme] = useState<MenuTheme>("dark");
+  const [theme, setTheme] = useState<MenuTheme>("light");
   const [current, setCurrent] = useState("1");
 
   const [collapsed, setCollapsed] = useState(false);
@@ -98,7 +99,7 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
     <>
       <div className="w-[250px]">
         <Menu
-          className="h-[100vh]"
+          className="h-[100vh] "
           defaultSelectedKeys={["1"]}
           defaultOpenKeys={["sub1"]}
           mode="inline"

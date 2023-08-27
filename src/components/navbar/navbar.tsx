@@ -39,7 +39,7 @@ const Links = [
     icon: <IoMdNotificationsOutline />,
     link: "#",
   },
-  { title: "Person", icon: <BsPerson />, link: "/home_page/Home" },
+  { title: "Person", icon: <BsPerson />, link: "/chat" },
 ];
 
 const NavLink = ({ children }: { children: any }) => (

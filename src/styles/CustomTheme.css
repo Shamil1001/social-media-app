@@ -1,0 +1,18 @@
+/* CustomSidebar.css */
+.custom-sidebar {
+    background-color: #f0f0f0; /* Change the background color */
+  }
+  
+  .ant-menu {
+    background-color: #f0f0f0; /* Change the background color of the menu */
+  }
+  
+  .ant-menu-item {
+    color: #333; /* Change the text color of menu items */
+  }
+  
+  .ant-menu-item-selected {
+    background-color: #1890ff; /* Change the background color of selected menu item */
+    color: #fff; /* Change the text color of selected menu item */
+  }
+  
