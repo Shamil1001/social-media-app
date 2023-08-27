@@ -86,7 +86,7 @@ export default function ProfileEdit() {
 
       console.log("Profile updated successfully!", user);
       //   console.log(user)
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error updating profile:", error.message);
     }
   };
