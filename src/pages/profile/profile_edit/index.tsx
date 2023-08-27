@@ -61,10 +61,12 @@ export default function ProfileEdit() {
       const user = auth.currentUser;
 
       // Update display name
-      await updateProfile(user, {
-        displayName: currentUserData.displayName,
-        email: currentUserData.email,
-      });
+      if (user !== null) {
+        await updateProfile(user, {
+          displayName: currentUserData.displayName,
+          email: currentUserData.email,
+        });
+      }
 
       await updateDoc(doc(db, "users", `${userDocId}`), {
         displayName: currentUserData.displayName,
