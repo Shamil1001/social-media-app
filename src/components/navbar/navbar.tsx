@@ -51,7 +51,7 @@ const NavLink = ({ children }: { children: any }) => (
     rounded={"md"}
     _hover={{
       textDecoration: "none",
-      bg: useColorModeValue("gray.200", "gray.700"),
+      // bg: useColorModeValue("gray.200", "gray.700"),
     }}
     href={children.link}
   >
@@ -77,11 +77,11 @@ export default function Navbar() {
     () =>
       onSnapshot(collection(db, "users"), (snapshot: any) => {
         const user = snapshot.docs.filter((doc: any) => {
-          return doc.data().displayName == auth.currentUser?.displayName;
+          return doc.data().uid == auth.currentUser?.uid;
         });
         setCurrentUser(user[0].data());
         const filteredId = snapshot.docs.filter((doc: any) => {
-          return doc.data().displayName == auth.currentUser?.displayName;
+          return doc.data().uid == auth.currentUser?.uid;
         });
         setDocId(filteredId[0].id);
         const requestedUsers = snapshot.docs
@@ -95,7 +95,6 @@ export default function Navbar() {
           })
           .map((item: any) => item.id);
         setRequestedDocIds(reqDocIds);
-        console.log("requestedDocIds", requestedDocIds);
         if (requestedUsers.length !== 0) {
           setRequestedUser(requestedUsers);
         }
@@ -224,8 +223,12 @@ export default function Navbar() {
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem>Your Servers</MenuItem>
-                  <MenuItem>Account Settings</MenuItem>
+                  <Link href="/profile">
+                    <MenuItem>My Profile</MenuItem>
+                  </Link>
+                  <Link href="/profile/profile_edit">
+                    <MenuItem>Edit Profile</MenuItem>
+                  </Link>
                   <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                 </MenuList>
               </Menu>

@@ -61,8 +61,9 @@ export default function HomePage() {
     () =>
       onSnapshot(collection(db, "users"), (snapshot: any) => {
         const filteredId = snapshot.docs.filter((doc: any) => {
-          return doc.data().displayName == auth.currentUser?.displayName;
+          return doc.data().uid == auth.currentUser?.uid;
         });
+
         setCurrentDocId(filteredId[0].id);
       }),
 
@@ -73,8 +74,9 @@ export default function HomePage() {
     () =>
       onSnapshot(collection(db, "users"), (snapshot: any) => {
         const filteredUser = snapshot.docs.filter((doc: any) => {
-          return doc.data().displayName == auth.currentUser?.displayName;
+          return doc.data().uid == auth.currentUser?.uid;
         });
+
         setCurrentUserPosts(filteredUser[0].data().posts);
       }),
 

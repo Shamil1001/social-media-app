@@ -92,7 +92,7 @@ export default function Post({ post, documentId, userData }: PostProps) {
     () =>
       onSnapshot(collection(db, "users"), (snapshot: any) => {
         const filteredId = snapshot.docs.filter((doc: any) => {
-          return doc.data().displayName == auth.currentUser?.displayName;
+          return doc.data().uid == auth.currentUser?.uid;
         });
         setCurrentUserData(filteredId[0].data());
         setDocId(filteredId[0].id);
