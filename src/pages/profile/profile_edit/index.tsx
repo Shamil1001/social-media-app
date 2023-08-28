@@ -108,7 +108,13 @@ export default function ProfileEdit() {
             <Avatar size={"xl"} src={currentUserData?.photoURL} />
             <Box mt={5}>
               <Stack>
-                {/* <Text className="text-lg font-bold text-white">About me</Text> */}
+                <input
+                  multiple
+                  type="file"
+                  id="file"
+                  // hidden
+                  // onChange={addImageToPost}
+                />
               </Stack>
               <Stack>
                 <Text className="text-sm text-white">UserName</Text>

@@ -25,8 +25,9 @@ import { signOut } from "next-auth/react";
 
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { AiFillHome } from "react-icons/ai";
-import { BsPerson } from "react-icons/bs";
+import { BsPerson, BsChatText } from "react-icons/bs";
 import { useSession } from "next-auth/react";
+
 import { auth, db } from "../../../firebase";
 import SearchUsers from "@/features/search_users/search_users";
 import { collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
@@ -39,7 +40,8 @@ const Links = [
     icon: <IoMdNotificationsOutline />,
     link: "#",
   },
-  { title: "Person", icon: <BsPerson />, link: "/chat" },
+  { title: "Person", icon: <BsPerson />, link: "/friends" },
+  { title: "Person", icon: <BsChatText />, link: "/chat" },
 ];
 
 const NavLink = ({ children }: { children: any }) => (
