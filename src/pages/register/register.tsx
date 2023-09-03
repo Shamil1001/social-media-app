@@ -99,6 +99,12 @@ const Register = () => {
     }
   };
 
+  const handlePress = (e: any) => {
+    if (e.key == "Enter") {
+      handleRegister();
+    }
+  };
+
   return (
     <>
       <NavbarLogin />
@@ -201,6 +207,7 @@ const Register = () => {
               <Input.Password
                 placeholder="confirm password"
                 value={registerInformation.confirmPassword}
+                onKeyDown={(e) => handlePress(e)}
                 onChange={(e) =>
                   setRegisterInformation({
                     ...registerInformation,

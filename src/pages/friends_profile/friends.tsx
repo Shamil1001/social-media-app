@@ -20,11 +20,24 @@ import { useState } from "react";
 export default function Friends() {
   const selectedUser = useSelector((state: any) => state.friend.selectedFriend);
   const selectedId = useSelector((state: any) => state.friend.selectedId);
-  const [isSendReq, setIsSendReq] = useState<boolean>(false);
+  const [followStatus, setfollowStatus] = useState("Unfollow");
 
-  const handleSendFriendRequest = async (id: string) => {
-    setIsSendReq(!isSendReq);
-    const requestedId = [...selectedUser.friendRequests, id];
+  const currentUser = auth.currentUser;
+
+  const handleFollow = () => {
+    if (selectedUser.followers.includes(currentUser?.uid)) {
+      setfollowStatus("Unfollow");
+    } else if (selectedUser.friendRequests.includes(currentUser?.uid)) {
+      setfollowStatus("Pending");
+      handleSendFriendRequest();
+    } else {
+      setfollowStatus("Follow");
+    }
+  };
+
+  const handleSendFriendRequest = async () => {
+    // setIsSendReq(!isSendReq);
+    const requestedId = [...selectedUser.friendRequests, currentUser?.uid];
     console.log("selected", selectedUser);
     await updateDoc(doc(db, "users", `${selectedId}`), {
       friendRequests: requestedId,
@@ -103,9 +116,10 @@ export default function Friends() {
                 mt={8}
                 // eslint-disable-next-line react-hooks/rules-of-hooks
                 bg={useColorModeValue("#151f21", "gray.900")}
-                onClick={() =>
-                  handleSendFriendRequest(auth.currentUser?.uid || "")
-                }
+                onClick={handleFollow}
+                // onClick={() =>
+                //   handleSendFriendRequest(auth.currentUser?.uid || "")
+                // }
                 color={"white"}
                 rounded={"md"}
                 _hover={{
@@ -113,7 +127,12 @@ export default function Friends() {
                   boxShadow: "lg",
                 }}
               >
-                {isSendReq ? "Unfollow" : "Follow"}
+                {selectedUser.friendRequests.includes(currentUser)
+                  ? "Pending"
+                  : selectedUser.followers.includes(currentUser)
+                  ? "Unfollow"
+                  : "Follow"}
+                {/* {followStatus} */}
               </Button>
             </Box>
           </Box>

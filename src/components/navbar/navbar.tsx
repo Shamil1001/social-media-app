@@ -46,7 +46,7 @@ const Links = [
     icon: <IoMdNotificationsOutline />,
     link: "#",
   },
-  { title: "Person", icon: <BsPerson />, link: "/friends" },
+  // { title: "Person", icon: <BsPerson />, link: "/friends" },
   { title: "Person", icon: <BsChatText />, link: "/chat" },
 ];
 

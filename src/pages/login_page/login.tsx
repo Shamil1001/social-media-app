@@ -49,6 +49,11 @@ const Login = () => {
       dispatch(handleLogin(loginInformation));
     }
   };
+  const handlePress = (e: any) => {
+    if (e.key == "Enter") {
+      handleLog();
+    }
+  };
 
   return (
     <>
@@ -83,6 +88,7 @@ const Login = () => {
               <Input.Password
                 placeholder="input password"
                 value={loginInformation.password}
+                onKeyDown={(e) => handlePress(e)}
                 iconRender={(visible) =>
                   visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                 }

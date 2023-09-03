@@ -125,6 +125,12 @@ export default function HomePage() {
     setPostText(postText + emoji);
   };
 
+  const handlePress = (e: any) => {
+    if (e.key == "Enter") {
+      sendPost();
+    }
+  };
+
   return (
     <>
       {auth.currentUser && (
@@ -141,6 +147,7 @@ export default function HomePage() {
                       maxLength={100}
                       maxH="250px"
                       w={"100%"}
+                      onKeyDown={(e) => handlePress(e)}
                       placeholder="What's happening"
                       value={postText}
                       onChange={(e) => setPostText(e.target.value)}

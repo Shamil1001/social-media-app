@@ -55,7 +55,7 @@ interface PostProps {
   userData: any;
 }
 
-export default function Post({ post, documentId, userData }: PostProps) {
+export default function Post({ post, documentId, userData, key }: PostProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isCommentOpen,
@@ -202,8 +202,11 @@ export default function Post({ post, documentId, userData }: PostProps) {
     }
   };
 
-  // currentUserData.following.includes(post.userId) ||
-  // (currentUserData.uid === post.userId && (
+  const handlePress = (e: any) => {
+    if (e.key == "Enter") {
+      handleComment();
+    }
+  };
 
   return (
     <>
