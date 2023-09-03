@@ -77,6 +77,7 @@ export default function Sidebar() {
     <>
       <Card
         w={"20%"}
+        minW={220}
         h={"88vh"}
         p={3}
         className="flex flex-col gap-6"

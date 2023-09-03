@@ -12,7 +12,10 @@ export default function Chatbox() {
       <Card w={"100%"} m={5}>
         <Box p={5}>{data.user.displayName}</Box>
         <Divider />
-        <Box className="h-[calc(100%-120px)]" p={5}>
+        <Box
+          className="h-[calc(100%-120px)] max-h-[330px] overflow-y-scroll custom-scrollbar"
+          p={5}
+        >
           <Messages />
         </Box>
         <ChatInput />

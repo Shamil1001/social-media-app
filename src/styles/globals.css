@@ -16,6 +16,22 @@
   }
 }
 
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  display: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: lightgray;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: darkgray;
+  border-radius: 5px;
+}
+
+
 body {
   color: black;
   background-color: #01213f;
