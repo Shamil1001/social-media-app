@@ -21,10 +21,10 @@ export default function Messages() {
           return chat.id.includes(data.chatId);
         });
         // setMessages(filteredId[0].data());
-        // console.log("snapshhot", filteredMessages[0].data().messages);
-        // console.log(data.chatId);
-        setMessages(filteredMessages[0].data().messages);
-        // setCurrentDocId(filteredId[0].id);
+
+        if (filteredMessages) {
+          setMessages(filteredMessages[0].data().messages);
+        }
       }),
 
     [data.chatId]
