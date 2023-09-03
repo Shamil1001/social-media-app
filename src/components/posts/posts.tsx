@@ -55,7 +55,7 @@ interface PostProps {
   userData: any;
 }
 
-export default function Post({ post, documentId, userData, key }: PostProps) {
+export default function Post({ post, documentId, userData }: PostProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isCommentOpen,

@@ -15,7 +15,7 @@ import { useContext, useEffect, useState } from "react";
 import { ChatContext } from "@/context/ChatContext";
 
 export default function Sidebar() {
-  const currentUser = auth.currentUser;
+  const currentUser: any = auth.currentUser;
   const [sidebarUser, setSidebarUsers] = useState<any>();
 
   const { dispatch } = useContext(ChatContext);

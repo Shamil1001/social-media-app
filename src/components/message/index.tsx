@@ -5,7 +5,7 @@ import { ChatContext } from "@/context/ChatContext";
 import Image from "next/image";
 
 export default function Message({ message }: any) {
-  const currentUser = auth.currentUser;
+  const currentUser: any = auth.currentUser;
   const { data } = useContext(ChatContext);
 
   console.log(message);

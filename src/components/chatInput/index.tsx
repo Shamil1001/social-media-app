@@ -28,6 +28,8 @@ export default function ChatInput() {
       const uploadTask = uploadBytesResumable(storageRef, img);
 
       uploadTask.on(
+        "state_changed",
+        null,
         (error) => {
           console.log(error);
         },
