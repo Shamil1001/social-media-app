@@ -30,7 +30,13 @@ import { useSession } from "next-auth/react";
 
 import { auth, db } from "../../../firebase";
 import SearchUsers from "@/features/search_users/search_users";
-import { collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 // import { Link } from "@chakra-ui/react";
 
 const Links = [
@@ -110,19 +116,29 @@ export default function Navbar() {
     reqUserfollowing: string[]
   ) => {
     const followers = [...currentUser?.followers, reqestedId];
+    const followwing = [...currentUser?.following, reqestedId];
     const requestedIds = currentUser.friendRequests.filter(
       (id: string) => id !== reqestedId
     );
     // console.log(reqestedDoc);
+    const combinedUid =
+      currentUser?.uid > reqestedId
+        ? currentUser?.uid + reqestedId
+        : reqestedId + currentUser?.uid;
+
+    await setDoc(doc(db, "chats", combinedUid), { messages: [] });
 
     await updateDoc(doc(db, "users", `${docId}`), {
       followers: followers,
       friendRequests: requestedIds,
+      following: followwing,
     });
     const following = [...reqUserfollowing, currentUser.uid];
+    // const followwers = [...reqUserfollowing, currentUser.uid];
 
     await updateDoc(doc(db, "users", `${reqestedDoc}`), {
       following: following,
+      // followers: followwers,
     });
 
     // console.log(docId);

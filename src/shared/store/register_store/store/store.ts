@@ -118,7 +118,8 @@ export const resgiterSlice=createSlice({
                             followers: []
                           };
                           const users = async () => {
-                            await addDoc(collection(db, "users"), userProperties);
+                            await setDoc(doc(db, "users", user.uid), userProperties);
+                            await setDoc(doc(db, "userChats", user.uid),{})
                             window.location.replace("/home_page/Home");
                           };
                           users()
