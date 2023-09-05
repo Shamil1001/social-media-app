@@ -127,12 +127,11 @@ export default function Friends() {
                   boxShadow: "lg",
                 }}
               >
-                {selectedUser.friendRequests.includes(currentUser)
+                {/* {selectedUser.friendRequests.includes(currentUser)
                   ? "Pending"
                   : selectedUser.followers.includes(currentUser)
                   ? "Unfollow"
-                  : "Follow"}
-                {/* {followStatus} */}
+                  : "Follow"} */}
               </Button>
             </Box>
           </Box>
