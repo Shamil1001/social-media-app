@@ -22,7 +22,7 @@ export default function Messages() {
         });
         // setMessages(filteredId[0].data());
 
-        if (filteredMessages) {
+        if (filteredMessages[0]) {
           setMessages(filteredMessages[0].data().messages);
         }
       }),
