@@ -1,6 +1,6 @@
 import Chatbox from "@/components/chatbox";
 import Navbar from "@/components/navbar/navbar";
-import Sidebar from "../../components/sidebar/index";
+// import Sidebar from "../../components/sidebar/index";
 import { Box } from "@chakra-ui/react";
 //ss
 export default function Chat() {
@@ -8,7 +8,7 @@ export default function Chat() {
     <>
       <Navbar />
       <Box className="flex flex-row">
-        <Sidebar />
+        {/* <Sidebar /> */}
         <Chatbox />
       </Box>
     </>
