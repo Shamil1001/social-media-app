@@ -23,7 +23,9 @@ export const friendSlice=createSlice({
         },
         handleSelectUser: (state, action)=>{
             state.selectedFriend=action.payload
-            Router.push("/friends_profile/friends")
+            console.log(action.payload)
+            Router.push(`/friends_profile/${action.payload.uid}`)
+            // 
         }
        
     }

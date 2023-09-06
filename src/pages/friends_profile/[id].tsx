@@ -14,24 +14,56 @@ import {
 import Navbar from "@/components/navbar/navbar";
 import { useSelector } from "react-redux";
 import { auth, db } from "../../../firebase";
-import { doc, updateDoc } from "firebase/firestore";
-import { useState } from "react";
+import { collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 export default function Friends() {
-  const selectedUser = useSelector((state: any) => state.friend.selectedFriend);
+  const selected = useSelector((state: any) => state.friend.selectedFriend);
+  const [selectedUser, setSelectedUser] = useState<any>();
   const selectedId = useSelector((state: any) => state.friend.selectedId);
-  const [followStatus, setfollowStatus] = useState("Unfollow");
+  const [followStatus, setfollowStatus] = useState({
+    status: "unfollowing",
+    btnTitle: "Follow",
+  });
+  const router = useRouter();
+  const id = router.query.id;
 
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "users"), (snapshot: any) => {
+        const filteredUser = snapshot.docs.filter((doc: any) => {
+          return doc.data().uid == id;
+        });
+        console.log(filteredUser[0]);
+
+        setSelectedUser(filteredUser[0].data());
+      }),
+
+    []
+  );
   const currentUser = auth.currentUser;
+  // console.log("router.pathname", router.query.id);
 
   const handleFollow = () => {
-    if (selectedUser.followers.includes(currentUser?.uid)) {
-      setfollowStatus("Unfollow");
-    } else if (selectedUser.friendRequests.includes(currentUser?.uid)) {
-      setfollowStatus("Pending");
-      handleSendFriendRequest();
+    if (followStatus.status == "unfollowing") {
+      setfollowStatus({
+        ...followStatus,
+        status: "pending",
+        btnTitle: "Pending",
+      });
+    } else if (followStatus.status == "pending") {
+      setfollowStatus({
+        ...followStatus,
+        status: "unfollowing",
+        btnTitle: "Follow",
+      });
     } else {
-      setfollowStatus("Follow");
+      setfollowStatus({
+        ...followStatus,
+        status: "unfollowing",
+        btnTitle: "Follow",
+      });
     }
   };
 
@@ -71,7 +103,7 @@ export default function Friends() {
             <Flex justify={"center"} mt={-12}>
               <Avatar
                 size={"xl"}
-                src={selectedUser.photoUrl}
+                // src={selectedUser.photoUrl}
                 // alt={"Author"}
                 css={{
                   border: "2px solid white",
@@ -108,9 +140,6 @@ export default function Friends() {
                 </Stack>
               </Stack>
 
-              {/* {
-                selectedUser.followers
-               }  */}
               <Button
                 w={"full"}
                 mt={8}
@@ -127,18 +156,12 @@ export default function Friends() {
                   boxShadow: "lg",
                 }}
               >
-                {/* {selectedUser.friendRequests.includes(currentUser)
-                  ? "Pending"
-                  : selectedUser.followers.includes(currentUser)
-                  ? "Unfollow"
-                  : "Follow"} */}
+                {followStatus.btnTitle}
               </Button>
             </Box>
           </Box>
         </Center>
       )}
-      {/* <div>Shamil</div>
-      <h2>{selectedUser.displayName}</h2> */}
     </>
   );
 }
