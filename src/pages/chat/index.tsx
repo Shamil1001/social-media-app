@@ -3,7 +3,7 @@ import Navbar from "@/components/navbar/navbar";
 // import Sidebar from "../../components/sidebar/index";
 import Sidebar from "@/components/sidebar";
 import { Box } from "@chakra-ui/react";
-//ss
+
 export default function Chat() {
   return (
     <>
