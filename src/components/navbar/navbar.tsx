@@ -27,7 +27,7 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { AiFillHome } from "react-icons/ai";
 import { BsPerson, BsChatText } from "react-icons/bs";
 import { useSession } from "next-auth/react";
-
+import { useRouter } from "next/router";
 import { auth, db } from "../../../firebase";
 import SearchUsers from "@/features/search_users/search_users";
 import {
@@ -50,23 +50,6 @@ const Links = [
   { title: "Person", icon: <BsChatText />, link: "/chat" },
 ];
 
-const NavLink = ({ children }: { children: any }) => (
-  // console.log(children)
-  <Link
-    px={2}
-    py={1}
-    fontSize={25}
-    rounded={"md"}
-    _hover={{
-      textDecoration: "none",
-      // bg: useColorModeValue("gray.200", "gray.700"),
-    }}
-    href={children.link}
-  >
-    {children.icon}
-  </Link>
-);
-
 interface RequestedUser {
   displayName: string;
   photoUrl: string;
@@ -74,12 +57,31 @@ interface RequestedUser {
 
 export default function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
+  const router = useRouter();
 
   const { data: session } = useSession();
   const [docId, setDocId] = useState("");
   const [currentUser, setCurrentUser] = useState<any>({ friendRequests: [] });
   const [requestedUser, setRequestedUser] = useState<RequestedUser[]>();
   const [requestedDocIds, setRequestedDocIds] = useState<string[]>();
+
+  const NavLink = ({ children }: { children: any }) => (
+    // console.log(children)
+    // px={2}
+    //   py={1}
+    //   fontSize={25}
+    //   rounded={"md"}
+    //   _hover={{
+    //     textDecoration: "none",
+
+    //   }}
+    <span
+      className="text-[25px] px-2 py-1 rounded-md cursor-pointer"
+      onClick={() => router.push(`${children.link}`)}
+    >
+      {children.icon}
+    </span>
+  );
 
   useEffect(
     () =>
@@ -165,7 +167,7 @@ export default function Navbar() {
                   {link.title == "Notification" ? (
                     <Menu>
                       <MenuButton>
-                        <IoMdNotificationsOutline fontSize={25} />
+                        <IoMdNotificationsOutline className="text-[28px] mt-2" />
                       </MenuButton>
                       {currentUser &&
                         currentUser.friendRequests.length !== 0 &&
@@ -241,12 +243,17 @@ export default function Navbar() {
                   </Center>
                   <br />
                   <MenuDivider />
-                  <Link href="/profile">
-                    <MenuItem>My Profile</MenuItem>
-                  </Link>
-                  <Link href="/profile/profile_edit">
-                    <MenuItem>Edit Profile</MenuItem>
-                  </Link>
+
+                  <MenuItem onClick={() => router.push("/profile")}>
+                    My Profile
+                  </MenuItem>
+
+                  <MenuItem
+                    onClick={() => router.push("/profile/profile_edit")}
+                  >
+                    Edit Profile
+                  </MenuItem>
+
                   <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                 </MenuList>
               </Menu>

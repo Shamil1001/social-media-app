@@ -101,7 +101,7 @@ export default function ProfileEdit() {
   return (
     <>
       {/* <Navbar /> */}
-      <Navbar />
+
       <div className="flex justify-center mt-5">
         <Card width={"xl"} minW={"md"} height={"md"}>
           <CardBody className="flex flex-col items-center">

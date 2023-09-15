@@ -5,6 +5,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { Provider } from "react-redux";
 import { store } from "@/store";
 import { ChatContextProvider } from "@/context/ChatContext";
+import Navbar from "@/components/navbar/navbar";
 
 export default function App({
   Component,
@@ -15,6 +16,8 @@ export default function App({
       <SessionProvider>
         <ChatContextProvider>
           <ChakraProvider>
+            {/* <span>Shamil</span> */}
+            <Navbar />
             <Component {...pageProps} />
           </ChakraProvider>
         </ChatContextProvider>

@@ -135,7 +135,6 @@ export default function HomePage() {
     <>
       {auth.currentUser && (
         <div>
-          <Navbar />
           <div className="flex flex-col items-center mt-5 mb-14">
             <Card maxW={"md"}>
               <CardBody w={"md"}>

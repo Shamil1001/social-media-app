@@ -14,7 +14,7 @@ export default function SearchUsers() {
   const [searchResult, setSearchResult] = useState([]);
   const [userData, setUserData] = useState([]);
   const [docIds, setDocIds] = useState<any>([]);
-
+  const currentUser: any = auth.currentUser;
   const dispatch = useDispatch();
 
   useEffect(
@@ -34,9 +34,12 @@ export default function SearchUsers() {
   const handleSearch = (event: any) => {
     const { value } = event.target;
     setSearch(value);
-    const filteredResults = searchResult?.filter((user: any) =>
-      user.displayName.toLowerCase().includes(value.toLowerCase())
+    const filteredResults = searchResult?.filter(
+      (user: any) =>
+        user.displayName.toLowerCase().includes(value.toLowerCase()) &&
+        user.uid !== currentUser.uid
     );
+    console.log(filteredResults);
     setUserData(filteredResults);
   };
 
@@ -59,7 +62,7 @@ export default function SearchUsers() {
           placeholder="Search friends"
         />
 
-        {search.length !== 0 && (
+        {search.length !== 0 && userData && (
           <Card
             w="16%"
             mt="10px"
@@ -68,17 +71,16 @@ export default function SearchUsers() {
             flex="flex-col"
             gap="10px"
           >
-            {userData &&
-              userData.map((user: any, index: number) => (
-                <div
-                  className="flex flex-row items-center w-full gap-5 group hover:bg-green-200"
-                  key={index}
-                  onClick={() => handleSelectSearchData(user)}
-                >
-                  <Avatar size="sm" src={user.photoUrl} />
-                  <h2 className="w-full cursor-pointer">{user.displayName}</h2>
-                </div>
-              ))}
+            {userData.map((user: any, index: number) => (
+              <div
+                className="flex flex-row items-center w-full gap-5 group hover:bg-green-200"
+                key={index}
+                onClick={() => handleSelectSearchData(user)}
+              >
+                <Avatar size="sm" src={user.photoUrl} />
+                <h2 className="w-full cursor-pointer">{user.displayName}</h2>
+              </div>
+            ))}
           </Card>
         )}
       </div>

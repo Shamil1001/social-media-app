@@ -79,7 +79,6 @@ export default function Friends() {
   console.log("Friends ", selectedUser);
   return (
     <>
-      <Navbar />
       {selectedUser && (
         <Center py={8}>
           <Box
