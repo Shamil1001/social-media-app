@@ -8,9 +8,10 @@ import {
   CardFooter,
   Text,
   Input,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { auth, db } from "../../../../firebase";
+import { auth, db, storage } from "../../../../firebase";
 import { useEffect, useState } from "react";
 import { updateProfile } from "firebase/auth";
 import Navbar from "@/components/navbar/navbar";
@@ -21,15 +22,28 @@ import {
   documentId,
   updateDoc,
 } from "firebase/firestore";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
+import ExtraInfoModal from "@/features/extra_info_modal";
+import { useRouter } from "next/router";
 
 export default function ProfileEdit() {
-  // const [editValues, setEditValues] = useState({
-  //   username: auth.currentUser?.displayName || "",
-  //   email: auth.currentUser?.email || "",
-  // });
+  const {
+    isOpen: isInfoModalOpen,
+    onOpen: onInfoModalOpen,
+    onClose: onInfoModalClose,
+  } = useDisclosure();
+  const [selectedImage, setSelectedImage] = useState<any>(null);
   const [currentUserData, setCurrentUserData] = useState<any>();
   const [userDocId, setUserDocId] = useState();
   const [postDocIds, setPostDocIds] = useState([]);
+
+  const router = useRouter();
 
   useEffect(
     () =>
@@ -60,31 +74,76 @@ export default function ProfileEdit() {
     try {
       const user = auth.currentUser;
 
-      // Update display name
-
       if (!user) {
         console.error("User is not authenticated");
         return;
       }
+      const uid = uuidv4();
 
-      const profileUpdates = {
-        displayName: currentUserData.displayName || null,
-        email: currentUserData.email || null,
-        // Add other properties like photoURL if needed
-      };
+      if (selectedImage) {
+        // Upload the selected image to Firebase Storage
+        const storageRef = ref(storage, `images/${uid}/${selectedImage.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, selectedImage);
 
-      await updateProfile(user, profileUpdates);
+        // console.log("uploadTask", uploadTask.snapshot.ref);
+        getDownloadURL(uploadTask.snapshot.ref).then((snapshot) => {
+          const profileUpdates = {
+            displayName: currentUserData.displayName || null,
+            email: currentUserData.email || null,
+            photoURL: snapshot,
+            // Add other properties like photoURL if needed
+          };
+          const profileUpdate = async () => {
+            await updateProfile(user, profileUpdates);
 
-      await updateDoc(doc(db, "users", `${userDocId}`), {
-        displayName: currentUserData.displayName,
-        email: currentUserData.email,
-      });
+            await updateDoc(doc(db, "users", `${userDocId}`), {
+              displayName: currentUserData.displayName,
+              email: currentUserData.email,
+              photoURL: snapshot, // Set the new photoURL here as well
+            });
+          };
+          profileUpdate();
+        });
+        // const photoURL = snapshot;
+        // console.log("snapshot", snapshot);
 
-      // postDocIds.map((postId: string) => {
-      //   return postUserChange(postId);
+        // Update the user's profile with the new photoURL
+
+        console.log("Profile photo updated successfully!");
+      } else {
+        const profileUpdates = {
+          displayName: currentUserData.displayName || null,
+          email: currentUserData.email || null,
+          // Add other properties like photoURL if needed
+        };
+
+        // If no image is selected, only update the display name and email
+        await updateProfile(user, profileUpdates);
+
+        // Update the display name and email in Firestore
+        await updateDoc(doc(db, "users", `${userDocId}`), {
+          displayName: currentUserData.displayName,
+          email: currentUserData.email,
+        });
+
+        console.log("Profile updated successfully!");
+      }
+
+      // const profileUpdates = {
+      //   displayName: currentUserData.displayName || null,
+      //   email: currentUserData.email || null,
+      //   // Add other properties like photoURL if needed
+      // };
+
+      // await updateProfile(user, profileUpdates);
+
+      // await updateDoc(doc(db, "users", `${userDocId}`), {
+      //   displayName: currentUserData.displayName,
+      //   email: currentUserData.email,
       // });
+      // // }
 
-      console.log("Profile updated successfully!", user);
+      // console.log("Profile updated successfully!", user);
       //   console.log(user)
     } catch (error: any) {
       console.error("Error updating profile:", error.message);
@@ -98,6 +157,8 @@ export default function ProfileEdit() {
     });
   };
 
+  console.log(selectedImage);
+
   return (
     <>
       {/* <Navbar /> */}
@@ -107,16 +168,21 @@ export default function ProfileEdit() {
           <CardBody className="flex flex-col items-center">
             <Avatar size={"xl"} src={currentUserData?.photoURL} />
             <Box mt={5}>
-              <Stack>
+              <Box className="flex justify-center">
+                <label htmlFor="file2" className="flex flex-row gap-6">
+                  <span className="p-2 bg-blue-400 rounded cursor-pointer">
+                    Select image
+                  </span>
+                </label>
                 <input
                   multiple
                   type="file"
-                  id="file"
-                  // hidden
-                  // onChange={addImageToPost}
+                  id="file2"
+                  hidden
+                  onChange={(e: any) => setSelectedImage(e.target.files[0])}
                 />
-              </Stack>
-              <Stack>
+              </Box>
+              <Stack className="mt-4">
                 <Text className="text-sm text-white">UserName</Text>
                 <Input
                   value={currentUserData?.displayName}
@@ -139,10 +205,22 @@ export default function ProfileEdit() {
                     })
                   }
                 />
+                <Box>
+                  <Text
+                    onClick={() => router.push("/profile/extra_info")}
+                    className="cursor-pointer w-[50%] "
+                  >
+                    Add extra info
+                  </Text>
+                </Box>
+                {/* <ExtraInfoModal
+                  isOpen={isInfoModalOpen}
+                  onClose={onInfoModalClose}
+                /> */}
               </Stack>
             </Box>
           </CardBody>
-          <CardFooter className="flex items-center justify-center w-full">
+          <CardFooter className="flex items-center justify-center w-full mt-[-20px] ">
             <Button className="w-[50%]" colorScheme="blue" onClick={handleSave}>
               Save
             </Button>

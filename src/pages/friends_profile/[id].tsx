@@ -111,6 +111,7 @@ export default function Friends() {
       );
       await updateDoc(doc(db, "users", `${selectedId}`), {
         followers: filterFollowers,
+        following: filterFollowers,
       });
     } else {
       const cancelFriendRequest = selectedUser.friendRequests.filter(

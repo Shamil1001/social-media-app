@@ -1,4 +1,4 @@
-import { Box, Card, Divider } from "@chakra-ui/react";
+import { Box, Card, CardHeader, Divider } from "@chakra-ui/react";
 import ChatInput from "../chatInput";
 import Messages from "../messages";
 import { useContext } from "react";
@@ -10,15 +10,23 @@ export default function Chatbox() {
   return (
     <>
       <Card w={"100%"} m={5}>
-        <Box p={5}>{data.user.displayName}</Box>
-        <Divider />
-        <Box
-          className="h-[calc(100%-120px)] max-h-[330px] overflow-y-scroll custom-scrollbar"
-          p={5}
-        >
-          <Messages />
-        </Box>
-        <ChatInput />
+        <CardHeader p={5}>
+          {data.chatId
+            ? data.user.displayName
+            : "Please, select a friend to chat"}
+        </CardHeader>
+        {data.chatId && (
+          <>
+            <Divider />
+            <Box
+              className="h-[calc(100%-120px)] max-h-[330px] overflow-y-scroll custom-scrollbar"
+              p={5}
+            >
+              <Messages />
+            </Box>
+            <ChatInput />
+          </>
+        )}
       </Card>
     </>
   );

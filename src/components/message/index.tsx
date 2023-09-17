@@ -1,4 +1,5 @@
 import { Avatar, Box } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { auth } from "../../../firebase";
 import { useContext } from "react";
 import { ChatContext } from "@/context/ChatContext";
@@ -32,9 +33,9 @@ export default function Message({ message }: any) {
             }
           />
         </div>
-        {/* <div className="chat-header">
-          <time className="text-xs opacity-50">12:45</time>
-        </div> */}
+        <div className="chat-header">
+          {/* <Text className="text-xs opacity-50">{message.date}</Text> */}
+        </div>
         <div className="chat-bubble">
           {message.text}
           {message.img && (

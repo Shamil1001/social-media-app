@@ -20,6 +20,7 @@ import {
   MenuGroup,
   Divider,
 } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { signOut } from "next-auth/react";
 
@@ -158,9 +159,12 @@ export default function Navbar() {
           <Flex alignItems={"center"}>
             <Stack direction={"row"} spacing={5}>
               <Menu>
-                <MenuButton>
+                <MenuButton className="relative">
                   <IoMdNotificationsOutline className="text-[28px]" />
                 </MenuButton>
+                <Text className="absolute w-4 h-4 text-[15px] font-bold text-white-500 rounded-[100%] text-center top-4 ml-5">
+                  {currentUser.friendRequests.length}
+                </Text>
                 {currentUser &&
                   currentUser.friendRequests.length !== 0 &&
                   requestedUser &&
