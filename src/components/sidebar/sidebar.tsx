@@ -16,9 +16,8 @@ import { ChatContext } from "@/context/ChatContext";
 
 export default function Sidebar() {
   const currentUser: any = auth.currentUser;
-  const [sidebarUser, setSidebarUsers] = useState<any>();
-
   const { dispatch } = useContext(ChatContext);
+  const [sidebarUser, setSidebarUsers] = useState<any>();
 
   useEffect(
     () =>
@@ -80,7 +79,7 @@ export default function Sidebar() {
         minW={220}
         h={"88vh"}
         p={3}
-        className="flex flex-col gap-4"
+        className="relative flex flex-col gap-4"
         rounded={"0px"}
       >
         <Text className="font-bold">Friends</Text>
@@ -89,7 +88,11 @@ export default function Sidebar() {
         {sidebarUser &&
           sidebarUser.map((item: any) => (
             <>
-              <Card variant={"outline"} onClick={() => handleSelect(item.user)}>
+              <Card
+                key={item.user.uid}
+                variant={"outline"}
+                onClick={() => handleSelect(item.user)}
+              >
                 <Box className="flex flex-row items-center gap-3 p-3 cursor-pointer">
                   <Avatar
                     name={item.user.displayName}

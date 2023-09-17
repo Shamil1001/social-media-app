@@ -52,13 +52,6 @@ export default function Profile() {
             rounded={"md"}
             overflow={"hidden"}
           >
-            {/* <Image
-              h={"130px"}
-              alt="cover-img"
-              w={"full"}
-              src={currentUserData.photoUrl}
-              objectFit={"cover"}
-            /> */}
             <Flex justify={"center"} mt={16}>
               <Avatar
                 size={"2xl"}
