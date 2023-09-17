@@ -20,8 +20,8 @@ import { useRouter } from "next/router";
 
 export default function Friends() {
   const selected = useSelector((state: any) => state.friend.selectedFriend);
-  const [selectedUser, setSelectedUser] = useState<any>();
-  const selectedId = useSelector((state: any) => state.friend.selectedId);
+  const [selectedUser, setSelectedUser] = useState<any>(selected);
+  const selectedId = selectedUser.uid;
   const [followStatus, setfollowStatus] = useState({
     status: "unfollowing",
     btnTitle: "Follow",
@@ -29,6 +29,8 @@ export default function Friends() {
   const router = useRouter();
   const id = router.query.id;
 
+  // status: "pending",
+  //           btnTitle: "Pending",
   useEffect(
     () =>
       onSnapshot(collection(db, "users"), (snapshot: any) => {
@@ -36,44 +38,89 @@ export default function Friends() {
           return doc.data().uid == id;
         });
         console.log(filteredUser[0]);
-
         setSelectedUser(filteredUser[0].data());
+        if (
+          !selectedUser.followers.includes(currentUser?.uid) &&
+          !selectedUser.friendRequests.includes(currentUser?.uid)
+        ) {
+          setfollowStatus({
+            ...followStatus,
+            status: "pending",
+            btnTitle: "Pending",
+          });
+        } else if (selectedUser.friendRequests.includes(currentUser?.uid)) {
+          setfollowStatus({
+            ...followStatus,
+            status: "unfollowing",
+            btnTitle: "Follow",
+          });
+        } else {
+          setfollowStatus({
+            ...followStatus,
+            status: "following",
+            btnTitle: "Unfollow",
+          });
+        }
       }),
 
-    []
+    [id, followStatus.status]
   );
   const currentUser = auth.currentUser;
-  // console.log("router.pathname", router.query.id);
 
   const handleFollow = () => {
-    if (followStatus.status == "unfollowing") {
-      setfollowStatus({
-        ...followStatus,
-        status: "pending",
-        btnTitle: "Pending",
-      });
-    } else if (followStatus.status == "pending") {
-      setfollowStatus({
-        ...followStatus,
-        status: "unfollowing",
-        btnTitle: "Follow",
-      });
-    } else {
-      setfollowStatus({
-        ...followStatus,
-        status: "unfollowing",
-        btnTitle: "Follow",
-      });
+    if (selectedUser) {
+      if (
+        !selectedUser.followers.includes(currentUser?.uid) &&
+        !selectedUser.friendRequests.includes(currentUser?.uid)
+      ) {
+        setfollowStatus({
+          ...followStatus,
+          status: "pending",
+          btnTitle: "Pending",
+        });
+      } else if (selectedUser.friendRequests.includes(currentUser?.uid)) {
+        setfollowStatus({
+          ...followStatus,
+          status: "unfollowing",
+          btnTitle: "Follow",
+        });
+      } else {
+        setfollowStatus({
+          ...followStatus,
+          status: "following",
+          btnTitle: "Unfollow",
+        });
+      }
     }
   };
-
+  console.log("selectedId", selectedId);
   const handleSendFriendRequest = async () => {
     // setIsSendReq(!isSendReq);
-    const requestedId = [...selectedUser.friendRequests, currentUser?.uid];
-    console.log("selected", selectedUser);
-    await updateDoc(doc(db, "users", `${selectedId}`), {
-      friendRequests: requestedId,
-    });
+    handleFollow();
+    if (
+      !selectedUser.followers.includes(currentUser?.uid) &&
+      !selectedUser.friendRequests.includes(currentUser?.uid)
+    ) {
+      const requestedId = [...selectedUser.friendRequests, currentUser?.uid];
+      await updateDoc(doc(db, "users", `${selectedId}`), {
+        friendRequests: requestedId,
+      });
+    } else if (selectedUser.followers.includes(currentUser?.uid)) {
+      const filterFollowers = selectedUser.followers.filter(
+        (item: any) => item !== currentUser?.uid
+      );
+      await updateDoc(doc(db, "users", `${selectedId}`), {
+        followers: filterFollowers,
+      });
+    } else {
+      const cancelFriendRequest = selectedUser.friendRequests.filter(
+        (item: any) => item !== currentUser?.uid
+      );
+      await updateDoc(doc(db, "users", `${selectedId}`), {
+        friendRequests: cancelFriendRequest,
+      });
+      console.log("selected", cancelFriendRequest);
+    }
   };
 
   console.log("Friends ", selectedUser);
@@ -144,10 +191,8 @@ export default function Friends() {
                 mt={8}
                 // eslint-disable-next-line react-hooks/rules-of-hooks
                 bg={useColorModeValue("#151f21", "gray.900")}
-                onClick={handleFollow}
-                // onClick={() =>
-                //   handleSendFriendRequest(auth.currentUser?.uid || "")
-                // }
+                // onClick={handleFollow}
+                onClick={handleSendFriendRequest}
                 color={"white"}
                 rounded={"md"}
                 _hover={{

@@ -7,7 +7,7 @@ import { Box } from "@chakra-ui/react";
 export default function Chat() {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <Box className="flex flex-row">
         <Sidebar />
         <Chatbox />

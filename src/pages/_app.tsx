@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "@/store";
 import { ChatContextProvider } from "@/context/ChatContext";
 import Navbar from "@/components/navbar/navbar";
+import { auth } from "../../firebase";
 
 export default function App({
   Component,
@@ -18,6 +19,7 @@ export default function App({
           <ChakraProvider>
             {/* <span>Shamil</span> */}
             <Navbar />
+            {/* {auth.currentUser && <Navbar />} */}
             <Component {...pageProps} />
           </ChakraProvider>
         </ChatContextProvider>

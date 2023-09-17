@@ -41,12 +41,7 @@ import {
 
 const Links = [
   { title: "Home", icon: <AiFillHome />, link: "/home_page/Home" },
-  {
-    title: "Notification",
-    icon: <IoMdNotificationsOutline />,
-    link: "#",
-  },
-  // { title: "Person", icon: <BsPerson />, link: "/friends" },
+  { title: "Person", icon: <BsPerson />, link: "/friends" },
   { title: "Person", icon: <BsChatText />, link: "/chat" },
 ];
 
@@ -66,15 +61,6 @@ export default function Navbar() {
   const [requestedDocIds, setRequestedDocIds] = useState<string[]>();
 
   const NavLink = ({ children }: { children: any }) => (
-    // console.log(children)
-    // px={2}
-    //   py={1}
-    //   fontSize={25}
-    //   rounded={"md"}
-    //   _hover={{
-    //     textDecoration: "none",
-
-    //   }}
     <span
       className="text-[25px] px-2 py-1 rounded-md cursor-pointer"
       onClick={() => router.push(`${children.link}`)}
@@ -164,57 +150,51 @@ export default function Navbar() {
             >
               {Links.map((link) => (
                 <div key={link.title}>
-                  {link.title == "Notification" ? (
-                    <Menu>
-                      <MenuButton>
-                        <IoMdNotificationsOutline className="text-[28px] mt-2" />
-                      </MenuButton>
-                      {currentUser &&
-                        currentUser.friendRequests.length !== 0 &&
-                        requestedUser &&
-                        requestedDocIds &&
-                        requestedDocIds?.length !== 0 && (
-                          // requestedUser.map((item: any, index: number) => (
-                          <MenuList>
-                            <MenuGroup>
-                              <MenuItem>Friend requests</MenuItem>
-                              <Divider />
-                              {/* <MenuGroupTitle>Header</MenuGroupTitle> */}
-                              {requestedUser.map((item: any, index: number) => (
-                                <MenuItem
-                                  className="flex flex-row gap-5"
-                                  key={index}
-                                >
-                                  <Avatar src={item.photoUrl} />
-                                  <p>{item.displayName}</p>
-                                  <Button
-                                    color="green.500"
-                                    onClick={() =>
-                                      handleAcceptFriendRequest(
-                                        item?.uid,
-                                        requestedDocIds[index],
-                                        item.following
-                                      )
-                                    }
-                                  >
-                                    Accept
-                                  </Button>
-                                </MenuItem>
-                              ))}
-                            </MenuGroup>
-                          </MenuList>
-                        )}
-                    </Menu>
-                  ) : (
-                    <NavLink key={link.title}>{link}</NavLink>
-                  )}
+                  <NavLink key={link.title}>{link}</NavLink>
                 </div>
               ))}
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
-            <Stack direction={"row"} spacing={7}>
-              <Button onClick={toggleColorMode}>
+            <Stack direction={"row"} spacing={5}>
+              <Menu>
+                <MenuButton>
+                  <IoMdNotificationsOutline className="text-[28px]" />
+                </MenuButton>
+                {currentUser &&
+                  currentUser.friendRequests.length !== 0 &&
+                  requestedUser &&
+                  requestedDocIds &&
+                  requestedDocIds?.length !== 0 && (
+                    // requestedUser.map((item: any, index: number) => (
+                    <MenuList>
+                      <MenuGroup>
+                        <MenuItem>Friend requests</MenuItem>
+                        <Divider />
+                        {/* <MenuGroupTitle>Header</MenuGroupTitle> */}
+                        {requestedUser.map((item: any, index: number) => (
+                          <MenuItem className="flex flex-row gap-5" key={index}>
+                            <Avatar src={item.photoUrl} />
+                            <p>{item.displayName}</p>
+                            <Button
+                              color="green.500"
+                              onClick={() =>
+                                handleAcceptFriendRequest(
+                                  item?.uid,
+                                  requestedDocIds[index],
+                                  item.following
+                                )
+                              }
+                            >
+                              Accept
+                            </Button>
+                          </MenuItem>
+                        ))}
+                      </MenuGroup>
+                    </MenuList>
+                  )}
+              </Menu>
+              <Button className="mt-2" onClick={toggleColorMode}>
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
 
