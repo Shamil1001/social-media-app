@@ -138,20 +138,10 @@ export default function Friends() {
             rounded={"md"}
             overflow={"hidden"}
           >
-            <Image
-              h={"120px"}
-              alt="cover-img"
-              w={"full"}
-              src={
-                "https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
-              }
-              objectFit={"cover"}
-            />
-            <Flex justify={"center"} mt={-12}>
+            <Flex justify={"center"} mt={8}>
               <Avatar
                 size={"xl"}
-                // src={selectedUser.photoUrl}
-                // alt={"Author"}
+                src={selectedUser.photoUrl}
                 css={{
                   border: "2px solid white",
                 }}
@@ -163,9 +153,14 @@ export default function Friends() {
                 <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
                   {selectedUser.displayName}
                 </Heading>
-                <Text color={"gray.500"}>
-                  {/* @{selectedUser.displayName.toLowerCase()} */}
-                </Text>
+                {selectedUser.first_name && selectedUser.last_name && (
+                  <Text color={"gray.500"}>
+                    {selectedUser.first_name + " " + selectedUser.last_name}
+                  </Text>
+                )}
+                {selectedUser.age && (
+                  <Text color={"gray.500"}>{selectedUser.age} years old</Text>
+                )}
               </Stack>
 
               <Stack direction={"row"} justify={"center"} spacing={6}>

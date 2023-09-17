@@ -1,3 +1,5 @@
+"use client";
+
 import Navbar from "@/components/navbar/navbar";
 import {
   CardBody,
@@ -52,7 +54,7 @@ export default function Profile() {
             rounded={"md"}
             overflow={"hidden"}
           >
-            <Flex justify={"center"} mt={16}>
+            <Flex justify={"center"} mt={4}>
               <Avatar
                 size={"2xl"}
                 src={currentUserData.photoUrl}
@@ -68,7 +70,18 @@ export default function Profile() {
                 <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
                   {currentUserData.displayName}
                 </Heading>
-                <Text color={"gray.500"}>{currentUserData.email}</Text>
+                {currentUserData.first_name && currentUserData.last_name && (
+                  <Text color={"gray.500"}>
+                    {currentUserData.first_name +
+                      " " +
+                      currentUserData.last_name}
+                  </Text>
+                )}
+                {currentUserData.age && (
+                  <Text color={"gray.500"}>
+                    {currentUserData.age} years old
+                  </Text>
+                )}
               </Stack>
 
               <Stack direction={"row"} justify={"center"} spacing={6}>

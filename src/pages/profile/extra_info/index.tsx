@@ -10,12 +10,45 @@ import {
   GridItem,
   Text,
 } from "@chakra-ui/react";
+
 import { Select, DatePicker, DatePickerProps, Input, InputNumber } from "antd";
+// import  from "antd/es/input/TextArea";
 import TextArea from "antd/es/input/TextArea";
 
+import { useState } from "react";
+import { auth, db } from "../../../../firebase";
+import { updateDoc, doc } from "firebase/firestore";
+import { useRouter } from "next/router";
+
 export default function ExtraInfo() {
+  const [extraData, setExtraData] = useState<any>({
+    first_name: null,
+    last_name: null,
+    birthday: null,
+    age: null,
+    gender: null,
+    bio: null,
+  });
   const onChange: DatePickerProps["onChange"] = (date, dateString) => {
     console.log(date, dateString);
+    setExtraData({ ...extraData, birthday: dateString });
+  };
+  const currentUser = auth.currentUser;
+  const router = useRouter();
+  const handleSaveExtraInfo = async () => {
+    await updateDoc(doc(db, "users", `${currentUser?.uid}`), {
+      ...extraData,
+    });
+    router.push("/profile");
+    setExtraData({
+      ...extraData,
+      first_name: null,
+      last_name: null,
+      birthday: null,
+      age: null,
+      gender: null,
+      bio: null,
+    });
   };
 
   return (
@@ -28,13 +61,27 @@ export default function ExtraInfo() {
             <GridItem colSpan={1}>
               <Box>
                 <Text>First name</Text>
-                <Input style={{ width: "100%" }} placeholder="Shamil" />
+                <Input
+                  value={extraData.first_name}
+                  onChange={(e) =>
+                    setExtraData({ ...extraData, first_name: e.target.value })
+                  }
+                  style={{ width: "100%" }}
+                  placeholder="Shamil"
+                />
               </Box>
             </GridItem>
             <GridItem colSpan={1}>
               <Box>
                 <Text>Last name</Text>
-                <Input style={{ width: "100%" }} placeholder="Jemhurov" />
+                <Input
+                  value={extraData.last_name}
+                  onChange={(e) =>
+                    setExtraData({ ...extraData, last_name: e.target.value })
+                  }
+                  style={{ width: "100%" }}
+                  placeholder="Jemhurov"
+                />
               </Box>
             </GridItem>
             <GridItem colSpan={1}>
@@ -50,19 +97,22 @@ export default function ExtraInfo() {
             <GridItem colSpan={1}>
               <Box>
                 <Text>Age</Text>
-                <InputNumber defaultValue={20} style={{ width: "100%" }} />
+                <InputNumber
+                  onChange={(e) => setExtraData({ ...extraData, age: e })}
+                  style={{ width: "100%" }}
+                />
               </Box>
             </GridItem>
             <GridItem colSpan={1}>
               <Box>
                 <Text>Gender</Text>
                 <Select
-                  defaultValue="male"
+                  value={extraData.gender}
                   style={{ width: "100%" }}
-                  //   onChange={handleChange}
+                  onChange={(e) => setExtraData({ ...extraData, gender: e })}
                   options={[
-                    { value: "male", label: "Male" },
-                    { value: "female", label: "Female" },
+                    { value: "Male", label: "Male" },
+                    { value: "Female", label: "Female" },
                   ]}
                 />
               </Box>
@@ -70,6 +120,10 @@ export default function ExtraInfo() {
             <GridItem colSpan={2}>
               <Text>Bio</Text>
               <TextArea
+                value={extraData.bio}
+                onChange={(e) =>
+                  setExtraData({ ...extraData, bio: e.target.value })
+                }
                 className="flex max-h-[100px]"
                 rows={4}
                 placeholder="About me ..."
@@ -78,7 +132,11 @@ export default function ExtraInfo() {
             </GridItem>
           </Grid>
           <CardFooter className="flex justify-center">
-            <Button className="w-[40%]" colorScheme="blue">
+            <Button
+              className="w-[40%]"
+              colorScheme="blue"
+              onClick={handleSaveExtraInfo}
+            >
               Submit
             </Button>
           </CardFooter>

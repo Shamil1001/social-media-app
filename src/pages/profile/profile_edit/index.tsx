@@ -183,7 +183,7 @@ export default function ProfileEdit() {
                 />
               </Box>
               <Stack className="mt-4">
-                <Text className="text-sm text-white">UserName</Text>
+                <Text className="text-sm font-semibold">UserName</Text>
                 <Input
                   value={currentUserData?.displayName}
                   placeholder="Username"
@@ -194,7 +194,7 @@ export default function ProfileEdit() {
                     })
                   }
                 />
-                <Text className="text-sm text-white">Email</Text>
+                <Text className="text-sm font-semibold">Email</Text>
                 <Input
                   value={currentUserData?.email}
                   placeholder="Email"
@@ -208,7 +208,7 @@ export default function ProfileEdit() {
                 <Box>
                   <Text
                     onClick={() => router.push("/profile/extra_info")}
-                    className="cursor-pointer w-[50%] "
+                    className="cursor-pointer w-[50%] font-semibold"
                   >
                     Add extra info
                   </Text>
