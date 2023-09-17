@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 
 import { Select, DatePicker, DatePickerProps, Input, InputNumber } from "antd";
-// import  from "antd/es/input/TextArea";
 import TextArea from "antd/es/input/TextArea";
 
 import { useState } from "react";
@@ -50,7 +49,7 @@ export default function ExtraInfo() {
       bio: null,
     });
   };
-
+  //
   return (
     <>
       <Center className="p-5">
