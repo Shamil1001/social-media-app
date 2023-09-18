@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 
 import { Select, DatePicker, DatePickerProps, Input, InputNumber } from "antd";
+import { Textarea } from "@chakra-ui/react";
 // import TextArea from "antd/es/input/TextArea";
 
 import { useState } from "react";
@@ -119,6 +120,15 @@ export default function ExtraInfo() {
             </GridItem>
             <GridItem colSpan={2}>
               <Text>Bio</Text>
+              <Textarea
+                placeholder="About me ..."
+                value={extraData.bio}
+                onChange={(e) =>
+                  setExtraData({ ...extraData, bio: e.target.value })
+                }
+                maxLength={100}
+                className="flex max-h-[100px]"
+              />
               {/* <TextArea
                 value={extraData.bio}
                 onChange={(e) =>
