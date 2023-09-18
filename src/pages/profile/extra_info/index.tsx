@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 
 import { Select, DatePicker, DatePickerProps, Input, InputNumber } from "antd";
-import TextArea from "antd/es/input/TextArea";
+// import TextArea from "antd/es/input/TextArea";
 
 import { useState } from "react";
 import { auth, db } from "../../../../firebase";
@@ -119,7 +119,7 @@ export default function ExtraInfo() {
             </GridItem>
             <GridItem colSpan={2}>
               <Text>Bio</Text>
-              <TextArea
+              {/* <TextArea
                 value={extraData.bio}
                 onChange={(e) =>
                   setExtraData({ ...extraData, bio: e.target.value })
@@ -128,7 +128,7 @@ export default function ExtraInfo() {
                 rows={4}
                 placeholder="About me ..."
                 maxLength={200}
-              />
+              /> */}
             </GridItem>
           </Grid>
           <CardFooter className="flex justify-center">
