@@ -20,6 +20,7 @@ import { useState } from "react";
 import { auth, db } from "../../../../firebase";
 import { updateDoc, doc } from "firebase/firestore";
 import { useRouter } from "next/router";
+import Navbar from "@/components/navbar/navbar";
 
 export default function ExtraInfo() {
   const [extraData, setExtraData] = useState<any>({
@@ -54,6 +55,7 @@ export default function ExtraInfo() {
   //
   return (
     <>
+      <Navbar />
       <Center className="p-5">
         <Card h={"100vh"} w={"50%"}>
           <CardHeader>About me</CardHeader>
@@ -129,16 +131,6 @@ export default function ExtraInfo() {
                 maxLength={100}
                 className="flex max-h-[100px]"
               />
-              {/* <TextArea
-                value={extraData.bio}
-                onChange={(e) =>
-                  setExtraData({ ...extraData, bio: e.target.value })
-                }
-                className="flex max-h-[100px]"
-                rows={4}
-                placeholder="About me ..."
-                maxLength={200}
-              /> */}
             </GridItem>
           </Grid>
           <CardFooter className="flex justify-center">

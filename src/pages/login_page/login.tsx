@@ -58,7 +58,7 @@ const Login = () => {
   return (
     <>
       <NavbarLogin />
-      <div className="flex flex-col items-center justify-center w-full h-full">
+      <div className="flex flex-col items-center justify-center w-full h-[90vh]">
         <Card
           // bordered={false}
           style={{

@@ -35,6 +35,7 @@
 body {
   color: black;
   background-color: #01213f;
+  height: 100vh;
   /* background: linear-gradient(
       to bottom,
       transparent,

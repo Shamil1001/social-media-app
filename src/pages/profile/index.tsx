@@ -41,6 +41,7 @@ export default function Profile() {
   return (
     <>
       {/* <div className="flex justify-center mt-5"> */}
+      <Navbar />
       {currentUserData && (
         <Center>
           <Box

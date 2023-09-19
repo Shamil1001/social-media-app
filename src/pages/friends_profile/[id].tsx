@@ -127,80 +127,87 @@ export default function Friends() {
   console.log("Friends ", selectedUser);
   return (
     <>
+      <Navbar />
       {selectedUser && (
-        <Center py={8}>
-          <Box
-            maxW={"27%"}
-            w={"full"}
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            bg={useColorModeValue("white", "gray.800")}
-            boxShadow={"2xl"}
-            rounded={"md"}
-            overflow={"hidden"}
-          >
-            <Flex justify={"center"} mt={8}>
-              <Avatar
-                size={"xl"}
-                src={selectedUser.photoUrl}
-                css={{
-                  border: "2px solid white",
-                }}
-              />
-            </Flex>
+        <>
+          <Center py={8} h={"85vh"}>
+            <Box
+              maxW={"27%"}
+              w={"full"}
+              // eslint-disable-next-line react-hooks/rules-of-hooks
+              bg={useColorModeValue("white", "gray.800")}
+              boxShadow={"2xl"}
+              rounded={"md"}
+              overflow={"hidden"}
+            >
+              <Flex justify={"center"} mt={8}>
+                <Avatar
+                  size={"xl"}
+                  src={selectedUser.photoUrl}
+                  css={{
+                    border: "2px solid white",
+                  }}
+                />
+              </Flex>
 
-            <Box p={6}>
-              <Stack spacing={0} align={"center"} mb={5}>
-                <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
-                  {selectedUser.displayName}
-                </Heading>
-                {selectedUser.first_name && selectedUser.last_name && (
-                  <Text color={"gray.500"}>
-                    {selectedUser.first_name + " " + selectedUser.last_name}
-                  </Text>
-                )}
-                {selectedUser.age && (
-                  <Text color={"gray.500"}>{selectedUser.age} years old</Text>
-                )}
-              </Stack>
-
-              <Stack direction={"row"} justify={"center"} spacing={6}>
-                <Stack spacing={0} align={"center"}>
-                  <Text fontWeight={600}>
-                    {selectedUser.followers && selectedUser.followers.length}
-                  </Text>
-                  <Text fontSize={"sm"} color={"gray.500"}>
-                    Followers
-                  </Text>
+              <Box p={6}>
+                <Stack spacing={0} align={"center"} mb={5}>
+                  <Heading
+                    fontSize={"2xl"}
+                    fontWeight={500}
+                    fontFamily={"body"}
+                  >
+                    {selectedUser.displayName}
+                  </Heading>
+                  {selectedUser.first_name && selectedUser.last_name && (
+                    <Text color={"gray.500"}>
+                      {selectedUser.first_name + " " + selectedUser.last_name}
+                    </Text>
+                  )}
+                  {selectedUser.age && (
+                    <Text color={"gray.500"}>{selectedUser.age} years old</Text>
+                  )}
                 </Stack>
-                <Stack spacing={0} align={"center"}>
-                  <Text fontWeight={600}>
-                    {selectedUser.following && selectedUser.following.length}
-                  </Text>
-                  <Text fontSize={"sm"} color={"gray.500"}>
-                    Following
-                  </Text>
-                </Stack>
-              </Stack>
 
-              <Button
-                w={"full"}
-                mt={8}
-                // eslint-disable-next-line react-hooks/rules-of-hooks
-                bg={useColorModeValue("#151f21", "gray.900")}
-                // onClick={handleFollow}
-                onClick={handleSendFriendRequest}
-                color={"white"}
-                rounded={"md"}
-                _hover={{
-                  transform: "translateY(-2px)",
-                  boxShadow: "lg",
-                }}
-              >
-                {followStatus.btnTitle}
-              </Button>
+                <Stack direction={"row"} justify={"center"} spacing={6}>
+                  <Stack spacing={0} align={"center"}>
+                    <Text fontWeight={600}>
+                      {selectedUser.followers && selectedUser.followers.length}
+                    </Text>
+                    <Text fontSize={"sm"} color={"gray.500"}>
+                      Followers
+                    </Text>
+                  </Stack>
+                  <Stack spacing={0} align={"center"}>
+                    <Text fontWeight={600}>
+                      {selectedUser.following && selectedUser.following.length}
+                    </Text>
+                    <Text fontSize={"sm"} color={"gray.500"}>
+                      Following
+                    </Text>
+                  </Stack>
+                </Stack>
+
+                <Button
+                  w={"full"}
+                  mt={8}
+                  // eslint-disable-next-line react-hooks/rules-of-hooks
+                  bg={useColorModeValue("#151f21", "gray.900")}
+                  // onClick={handleFollow}
+                  onClick={handleSendFriendRequest}
+                  color={"white"}
+                  rounded={"md"}
+                  _hover={{
+                    transform: "translateY(-2px)",
+                    boxShadow: "lg",
+                  }}
+                >
+                  {followStatus.btnTitle}
+                </Button>
+              </Box>
             </Box>
-          </Box>
-        </Center>
+          </Center>
+        </>
       )}
     </>
   );
