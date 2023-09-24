@@ -10,7 +10,6 @@ interface PostData {
 
 const Feed = () => {
   const [posts, setPosts] = useState<PostData[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
@@ -31,7 +30,6 @@ const Feed = () => {
       const c = fetchedUsers.filter((user: any) =>
         user.followers.includes(auth.currentUser?.uid)
       );
-      console.log("c", c);
 
       setUserData(fetchedUsers);
     });
@@ -40,7 +38,6 @@ const Feed = () => {
     };
   }, [db]);
 
-  // console.log(userData[0]);
   return (
     <div className="relative z-0 flex flex-col items-center gap-4 mt-4">
       {posts.length > 0 &&

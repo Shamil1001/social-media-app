@@ -45,7 +45,7 @@ export default function HomePage() {
   //   return state.home?.selectFile || null;
   // });
 
-  const pickerRef = useRef(null);
+  const pickerRef = useRef<any>(null);
 
   const addImageToPost = (e: any) => {
     const reader = new FileReader();
@@ -131,6 +131,23 @@ export default function HomePage() {
     }
   };
 
+  // useEffect(() => {
+  //   const handleClickOutside = (e: any) => {
+  //     // Check if the click target is not within the emoji picker container
+  //     if (pickerRef.current && !pickerRef.current.contains(e.target)) {
+  //       setShowEmojis(false); // Close the emoji picker
+  //     }
+  //   };
+
+  //   // Add an event listener to the document for clicks
+  //   document.addEventListener("click", handleClickOutside);
+
+  //   return () => {
+  //     // Remove the event listener when the component unmounts
+  //     document.removeEventListener("click", handleClickOutside);
+  //   };
+  // }, []);
+
   return (
     <>
       {auth.currentUser && (
@@ -181,7 +198,11 @@ export default function HomePage() {
 
                       <BsEmojiSmile
                         className="cursor-pointer"
-                        onClick={() => setShowEmojis(!showEmojis)}
+                        onClick={(event: any) => {
+                          event.stopPropagation();
+                          setShowEmojis(!showEmojis);
+                        }}
+                        // onClick={() => }
                       />
                     </div>
 
@@ -199,6 +220,7 @@ export default function HomePage() {
                         <Picker
                           onEmojiSelect={addEmoji}
                           data={emojiData}
+                          onClickOutside={() => setShowEmojis(false)}
                           theme="dark"
                         />
                       </div>
