@@ -51,11 +51,10 @@ import CommentModal from "@/features/delete_modal";
 
 interface PostProps {
   post: any;
-  documentId: string;
   userData: any;
 }
 
-export default function Post({ post, documentId, userData }: PostProps) {
+export default function Post({ post, userData }: PostProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isCommentOpen,
@@ -113,14 +112,14 @@ export default function Post({ post, documentId, userData }: PostProps) {
     await updateDoc(doc(db, "users", `${docId}`), {
       posts: updatedPosts,
     });
-    await deleteDoc(doc(db, "posts", `${documentId}`));
+    await deleteDoc(doc(db, "posts", `${post.postId}`));
 
     onClose();
   };
 
   const handleEditPost = async (editValue: string) => {
     console.log("IDSss", docId, selectedPostId);
-    await updateDoc(doc(db, "posts", `${documentId}`), {
+    await updateDoc(doc(db, "posts", `${post.postId}`), {
       text: editValue,
     });
 
@@ -134,31 +133,31 @@ export default function Post({ post, documentId, userData }: PostProps) {
 
   const handleOpenEditModal = (postId: string) => {
     setSelectedPostId(postId);
-    console.log(documentId);
+    console.log(post.postId);
     onEditOpen();
   };
 
   useEffect(
     () =>
       onSnapshot(
-        collection(db, "posts", `${documentId}`, "likes"),
+        collection(db, "posts", `${post.postId}`, "likes"),
         (snapshot: any) => setLikes(snapshot.docs)
       ),
 
-    [documentId]
+    [post.postId]
   );
 
   useEffect(
     () =>
       onSnapshot(
-        collection(db, "posts", `${documentId}`, "comments"),
+        collection(db, "posts", `${post.postId}`, "comments"),
         (snapshot: any) => {
           const fetchComments = snapshot.docs.map((doc: any) => doc.data());
           setComments(fetchComments);
         }
       ),
 
-    [documentId]
+    [post.postId]
   );
 
   useEffect(
@@ -172,12 +171,12 @@ export default function Post({ post, documentId, userData }: PostProps) {
   const likePost = async () => {
     if (liked && currentUser !== null) {
       await deleteDoc(
-        doc(db, "posts", `${documentId}`, "likes", currentUser.uid)
+        doc(db, "posts", `${post.postId}`, "likes", currentUser.uid)
       );
     }
     if (!liked && currentUser !== null) {
       await setDoc(
-        doc(db, "posts", `${documentId}`, "likes", currentUser.uid),
+        doc(db, "posts", `${post.postId}`, "likes", currentUser.uid),
         {
           username: currentUser.displayName,
           comment: commentValue,
@@ -189,7 +188,7 @@ export default function Post({ post, documentId, userData }: PostProps) {
   const handleComment = async () => {
     const uuid = uuidv4();
     if (currentUser !== null && commentValue.length !== 0) {
-      await setDoc(doc(db, "posts", `${documentId}`, "comments", uuid), {
+      await setDoc(doc(db, "posts", `${post.postId}`, "comments", uuid), {
         userdata: currentUser.displayName,
         userId: currentUser.uid,
         email: currentUser.email,

@@ -86,7 +86,7 @@ export default function HomePage() {
   const sendPost = async () => {
     const uniqueId = uuidv4();
     const session = { user: { uid: "", name: "", image: "", tag: "" } };
-    const docRef = await addDoc(collection(db, "posts"), {
+    await setDoc(doc(db, "posts", `${uniqueId}`), {
       userId: auth.currentUser?.uid,
       displayName: auth.currentUser?.displayName,
       userImg: auth.currentUser?.photoURL,
@@ -97,6 +97,8 @@ export default function HomePage() {
       postId: uniqueId,
     });
 
+    // console.log(docRef);
+
     const newPostId = [...currentUserPosts, uniqueId];
     await updateDoc(doc(db, "users", `${currentDocId}`), {
       posts: newPostId,
@@ -105,12 +107,12 @@ export default function HomePage() {
     setPostText("");
     setSelectedFile(null);
 
-    const imageRef = ref(storage, `posts/${docRef.id}/image`);
+    const imageRef = ref(storage, `posts/${uniqueId}/image`);
 
     if (selectFile) {
       await uploadString(imageRef, selectFile, "data_url").then(async () => {
         const downloadUrl = await getDownloadURL(imageRef);
-        await updateDoc(doc(db, "posts", docRef.id), {
+        await updateDoc(doc(db, "posts", `${uniqueId}`), {
           image: downloadUrl,
         });
       });

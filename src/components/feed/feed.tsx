@@ -16,8 +16,11 @@ const Feed = () => {
     const unsubscribe = onSnapshot(collection(db, "posts"), (snapshot: any) => {
       const fetchedPosts = snapshot.docs.map((doc: any) => doc.data());
       const ids = snapshot.docs.map((doc: any) => doc.id);
-      // console.log("fetchedPosts", fetchedPosts);
-      setPosts([...posts, { postData: fetchedPosts, documentIds: ids }]);
+      const updatedPosts = fetchedPosts.sort(
+        (a: any, b: any) => a.timestampL?.toDate() - b.timestampL?.toDate()
+      );
+
+      setPosts(updatedPosts);
     });
     return () => {
       unsubscribe();
@@ -41,12 +44,12 @@ const Feed = () => {
   return (
     <div className="relative z-0 flex flex-col items-center gap-4 mt-4">
       {posts.length > 0 &&
-        posts[0].postData?.map((post: any, index: number) => (
+        posts?.map((post: any, index: number) => (
           <Post
             key={index}
             post={post}
             userData={userData}
-            documentId={posts[0].documentIds[index]}
+            // documentId={posts[0].documentIds[index]}
           />
         ))}
     </div>
