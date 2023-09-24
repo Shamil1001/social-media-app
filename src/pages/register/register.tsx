@@ -173,7 +173,7 @@ const Register = () => {
               <Input
                 placeholder="Username"
                 value={registerInformation.username}
-                prefix={<UserOutlined />}
+                // prefix={<UserOutlined />}
                 onChange={(e) =>
                   setRegisterInformation({
                     ...registerInformation,

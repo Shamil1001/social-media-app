@@ -78,11 +78,11 @@ export default function Profile() {
                       currentUserData.last_name}
                   </Text>
                 )}
-                {currentUserData.age && (
+                {/* {currentUserData.age && (
                   <Text color={"gray.500"}>
                     {currentUserData.age} years old
                   </Text>
-                )}
+                )} */}
               </Stack>
 
               <Stack direction={"row"} justify={"center"} spacing={6}>

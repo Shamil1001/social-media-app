@@ -164,9 +164,9 @@ export default function Friends() {
                       {selectedUser.first_name + " " + selectedUser.last_name}
                     </Text>
                   )}
-                  {selectedUser.age && (
+                  {/* {selectedUser.age && (
                     <Text color={"gray.500"}>{selectedUser.age} years old</Text>
-                  )}
+                  )} */}
                 </Stack>
 
                 <Stack direction={"row"} justify={"center"} spacing={6}>

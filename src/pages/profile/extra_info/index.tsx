@@ -16,13 +16,43 @@ import { Select, DatePicker, DatePickerProps, Input, InputNumber } from "antd";
 import { Textarea } from "@chakra-ui/react";
 // import TextArea from "antd/es/input/TextArea";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { auth, db } from "../../../../firebase";
-import { updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc, collection, onSnapshot } from "firebase/firestore";
 import { useRouter } from "next/router";
 import Navbar from "@/components/navbar/navbar";
 
 export default function ExtraInfo() {
+  const [currentUserData, setCurrentUserData] = useState<any>();
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "users"), (snapshot: any) => {
+        const filteredUser = snapshot.docs.filter((doc: any) => {
+          return doc.data().uid == auth.currentUser?.uid;
+        });
+        // console.log("current", filteredUser[0].data());
+        const fetchedUser = filteredUser[0].data();
+        setCurrentUserData(fetchedUser);
+        setExtraData({
+          ...fetchedUser,
+          first_name:
+            fetchedUser && fetchedUser.first_name
+              ? fetchedUser.first_name
+              : null,
+          last_name:
+            fetchedUser && fetchedUser.last_name ? fetchedUser.last_name : null,
+          birthday:
+            fetchedUser && fetchedUser.birthday ? fetchedUser.birthday : null,
+          age: fetchedUser && fetchedUser.age ? fetchedUser.age : null,
+          gender: fetchedUser && fetchedUser.gender ? fetchedUser.gender : null,
+          bio: fetchedUser && fetchedUser.bio ? fetchedUser.bio : null,
+        });
+      }),
+    []
+  );
+  // first_name: currentUserData.first_name ? currentUserData.first_name : null,
+  // last_name: currentUserData.last_name ? currentUserData.last_name : null,
   const [extraData, setExtraData] = useState<any>({
     first_name: null,
     last_name: null,
@@ -31,8 +61,28 @@ export default function ExtraInfo() {
     gender: null,
     bio: null,
   });
+
+  const calculateAge = (dateString: string) => {
+    const birthdayDate = new Date(dateString);
+    const currentDate = new Date();
+
+    let ageYears = currentDate.getFullYear() - birthdayDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+    const birthMonth = birthdayDate.getMonth();
+
+    if (
+      currentMonth < birthMonth ||
+      (currentMonth === birthMonth &&
+        currentDate.getDate() < birthdayDate.getDate())
+    ) {
+      ageYears--;
+    }
+    setExtraData({ ...extraData, age: ageYears });
+  };
+
   const onChange: DatePickerProps["onChange"] = (date, dateString) => {
     console.log(date, dateString);
+    calculateAge(dateString);
     setExtraData({ ...extraData, birthday: dateString });
   };
   const currentUser = auth.currentUser;
@@ -42,28 +92,28 @@ export default function ExtraInfo() {
       ...extraData,
     });
     router.push("/profile");
-    setExtraData({
-      ...extraData,
-      first_name: null,
-      last_name: null,
-      birthday: null,
-      age: null,
-      gender: null,
-      bio: null,
-    });
+    // setExtraData({
+    //   ...extraData,
+    //   first_name: null,
+    //   last_name: null,
+    //   birthday: null,
+    //   age: null,
+    //   gender: null,
+    //   bio: null,
+    // });
   };
-  //
+  // console.log("extra", currentUserData.first_name);
   return (
     <>
       <Navbar />
       <Center className="p-5">
-        <Card h={"100vh"} w={"50%"}>
-          <CardHeader>About me</CardHeader>
+        <Card h={"85vh"} w={"50%"}>
+          <CardHeader className="font-semibold">About me</CardHeader>
           <Divider />
           <Grid className="m-5" templateColumns="repeat(2, 1fr)" gap={6}>
             <GridItem colSpan={1}>
               <Box>
-                <Text>First name</Text>
+                <Text className="font-semibold">First name</Text>
                 <Input
                   value={extraData.first_name}
                   onChange={(e) =>
@@ -76,7 +126,7 @@ export default function ExtraInfo() {
             </GridItem>
             <GridItem colSpan={1}>
               <Box>
-                <Text>Last name</Text>
+                <Text className="font-semibold">Last name</Text>
                 <Input
                   value={extraData.last_name}
                   onChange={(e) =>
@@ -89,7 +139,7 @@ export default function ExtraInfo() {
             </GridItem>
             <GridItem colSpan={1}>
               <Box className="w-full">
-                <Text>Birthday</Text>
+                <Text className="font-semibold">Birthday</Text>
                 <DatePicker
                   style={{ width: "40%" }}
                   className="absolute"
@@ -97,7 +147,7 @@ export default function ExtraInfo() {
                 />
               </Box>
             </GridItem>
-            <GridItem colSpan={1}>
+            {/* <GridItem colSpan={1}>
               <Box>
                 <Text>Age</Text>
                 <InputNumber
@@ -105,10 +155,10 @@ export default function ExtraInfo() {
                   style={{ width: "100%" }}
                 />
               </Box>
-            </GridItem>
+            </GridItem> */}
             <GridItem colSpan={1}>
               <Box>
-                <Text>Gender</Text>
+                <Text className="font-semibold">Gender</Text>
                 <Select
                   value={extraData.gender}
                   style={{ width: "100%" }}
@@ -121,7 +171,7 @@ export default function ExtraInfo() {
               </Box>
             </GridItem>
             <GridItem colSpan={2}>
-              <Text>Bio</Text>
+              <Text className="font-semibold">Bio</Text>
               <Textarea
                 placeholder="About me ..."
                 value={extraData.bio}
