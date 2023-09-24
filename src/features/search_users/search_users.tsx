@@ -64,7 +64,8 @@ export default function SearchUsers() {
 
         {search.length !== 0 && userData && (
           <Card
-            w="16%"
+            // w="20%"
+            minW={210}
             mt="10px"
             p="10px"
             position="absolute"

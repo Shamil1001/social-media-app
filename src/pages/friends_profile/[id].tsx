@@ -18,71 +18,82 @@ import { collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
+interface IFollowProps {
+  status: string | null;
+  btnTitle: string | null;
+}
+
 export default function Friends() {
   const selected = useSelector((state: any) => state.friend.selectedFriend);
   const [selectedUser, setSelectedUser] = useState<any>(selected);
   const selectedId = selectedUser.uid;
-  const [followStatus, setfollowStatus] = useState({
-    status: "unfollowing",
-    btnTitle: "Follow",
+  const [followStatus, setfollowStatus] = useState<IFollowProps>({
+    status: null,
+    btnTitle: null,
   });
   const router = useRouter();
   const id = router.query.id;
 
-  // status: "pending",
-  //           btnTitle: "Pending",
   useEffect(
     () =>
       onSnapshot(collection(db, "users"), (snapshot: any) => {
-        const filteredUser = snapshot.docs.filter((doc: any) => {
-          return doc.data().uid == id;
-        });
-        console.log(filteredUser[0]);
-        setSelectedUser(filteredUser[0].data());
+        const filteredUser = snapshot.docs
+          .filter((doc: any) => {
+            return doc.data().uid == id;
+          })[0]
+          .data();
+        console.log(filteredUser);
+        setSelectedUser(filteredUser);
+        filteredUser.friendRequests.includes(currentUser?.uid);
         if (
-          !selectedUser.followers.includes(currentUser?.uid) &&
-          !selectedUser.friendRequests.includes(currentUser?.uid)
+          filteredUser.followers.includes(currentUser?.uid) ||
+          filteredUser.following.includes(currentUser?.uid)
         ) {
-          setfollowStatus({
-            ...followStatus,
-            status: "pending",
-            btnTitle: "Pending",
-          });
-        } else if (selectedUser.friendRequests.includes(currentUser?.uid)) {
-          setfollowStatus({
-            ...followStatus,
-            status: "unfollowing",
-            btnTitle: "Follow",
-          });
-        } else {
           setfollowStatus({
             ...followStatus,
             status: "following",
             btnTitle: "Unfollow",
           });
+        } else if (filteredUser.friendRequests.includes(currentUser?.uid)) {
+          setfollowStatus({
+            ...followStatus,
+            status: "pending",
+            btnTitle: "Pending",
+          });
+        } else {
+          setfollowStatus({
+            ...followStatus,
+            status: "unfollowing",
+            btnTitle: "Follow",
+          });
         }
       }),
 
-    [id, followStatus.status]
+    [id]
   );
   const currentUser = auth.currentUser;
-
+  console.log("selecctedUser", selectedUser);
   const handleFollow = () => {
     if (selectedUser) {
       if (
-        !selectedUser.followers.includes(currentUser?.uid) &&
+        selectedUser.followers.includes(currentUser?.uid) ||
+        selectedUser.following.includes(currentUser?.uid) ||
+        selectedUser.friendRequests.includes(currentUser?.uid)
+      ) {
+        setfollowStatus({
+          ...followStatus,
+          status: "unfollowing",
+          btnTitle: "Follow",
+        });
+      } else if (
+        !selectedUser.followers.includes(currentUser?.uid) ||
+        !selectedUser.following.includes(currentUser?.uid) ||
         !selectedUser.friendRequests.includes(currentUser?.uid)
       ) {
         setfollowStatus({
           ...followStatus,
           status: "pending",
           btnTitle: "Pending",
-        });
-      } else if (selectedUser.friendRequests.includes(currentUser?.uid)) {
-        setfollowStatus({
-          ...followStatus,
-          status: "unfollowing",
-          btnTitle: "Follow",
         });
       } else {
         setfollowStatus({
