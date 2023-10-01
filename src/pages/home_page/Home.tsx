@@ -133,30 +133,13 @@ export default function HomePage() {
     }
   };
 
-  // useEffect(() => {
-  //   const handleClickOutside = (e: any) => {
-  //     // Check if the click target is not within the emoji picker container
-  //     if (pickerRef.current && !pickerRef.current.contains(e.target)) {
-  //       setShowEmojis(false); // Close the emoji picker
-  //     }
-  //   };
-
-  //   // Add an event listener to the document for clicks
-  //   document.addEventListener("click", handleClickOutside);
-
-  //   return () => {
-  //     // Remove the event listener when the component unmounts
-  //     document.removeEventListener("click", handleClickOutside);
-  //   };
-  // }, []);
-
   return (
     <>
       {auth.currentUser && (
         <div className="h-[calc(100vh)]">
           <Navbar />
           <div className="flex flex-col items-center mt-5 mb-14">
-            <Card maxW={"md"}>
+            <Card maxW={"md"} boxShadow="2xl">
               <CardBody w={"md"}>
                 <div className="flex flex-row w-full gap-5">
                   <Avatar size={"md"} src={`${auth.currentUser?.photoURL}`} />

@@ -112,12 +112,13 @@ const Register = () => {
         <div className="flex flex-col items-center justify-center w-full h-full">
           <Card
             // bordered={false}
+            boxShadow="2xl"
             style={{
               width: 350,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              border: "1px solid gray",
+              // border: "1px solid gray",
             }}
           >
             <h1 className="text-3xl text-center mb-[20px] mt-5">Register</h1>
@@ -225,7 +226,9 @@ const Register = () => {
 
             <CardFooter>
               <Link href="/">
-                <p className="text-center mt-[20px]">Already have account</p>
+                <p className=" text-blue-500 text-center mt-[20px] hover:text-blue-900">
+                  Already have account
+                </p>
               </Link>
             </CardFooter>
           </Card>

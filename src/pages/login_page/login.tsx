@@ -60,13 +60,12 @@ const Login = () => {
       <NavbarLogin />
       <div className="flex flex-col items-center justify-center w-full h-[90vh]">
         <Card
-          // bordered={false}
+          boxShadow="2xl"
           style={{
             width: 350,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            border: "1px solid gray",
           }}
         >
           <h1 className="text-3xl text-center mb-[20px] mt-5">Login</h1>
@@ -104,10 +103,10 @@ const Login = () => {
                 Login
               </Button>
             </div>
-            <div className="flex flex-row items-center justify-center gap-2 mt-5 cursor-pointer hover:text-blue-700">
+            {/* <div className="flex flex-row items-center justify-center gap-2 mt-5 cursor-pointer hover:text-blue-700">
               <FcGoogle className="text-[20px]" />
               <h2 onClick={() => signIn("google")}>Sign in with Google</h2>
-            </div>
+            </div> */}
           </CardBody>
 
           <CardFooter>
