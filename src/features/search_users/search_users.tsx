@@ -55,8 +55,10 @@ export default function SearchUsers() {
 
   return (
     <>
-      <div className="width-[40px]">
+      <div>
         <Input
+          border="1px solid gray"
+          // boxShadow="xs"
           value={search}
           onChange={handleSearch}
           placeholder="Search friends"

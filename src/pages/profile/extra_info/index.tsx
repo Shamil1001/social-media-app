@@ -107,7 +107,7 @@ export default function ExtraInfo() {
     <>
       <Navbar />
       <Center className="p-5">
-        <Card h={"85vh"} w={"50%"}>
+        <Card boxShadow={"2xl"} h={"85vh"} w={"50%"}>
           <CardHeader className="font-semibold">About me</CardHeader>
           <Divider />
           <Grid className="m-5" templateColumns="repeat(2, 1fr)" gap={6}>

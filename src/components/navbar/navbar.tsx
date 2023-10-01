@@ -19,14 +19,22 @@ import {
   Input,
   MenuGroup,
   Divider,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { signOut } from "next-auth/react";
 
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { AiFillHome } from "react-icons/ai";
-import { BsPerson, BsChatText } from "react-icons/bs";
+import { AiFillHome, AiOutlineHome } from "react-icons/ai";
+import {
+  BsPerson,
+  BsPersonFill,
+  BsChatText,
+  BsFillChatTextFill,
+  BsChatTextFill,
+} from "react-icons/bs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { auth, db } from "../../../firebase";
@@ -40,12 +48,6 @@ import {
 } from "firebase/firestore";
 // import { Link } from "@chakra-ui/react";
 
-const Links = [
-  { title: "Home", icon: <AiFillHome />, link: "/home_page/Home" },
-  { title: "Person", icon: <BsPerson />, link: "/friends" },
-  { title: "Person", icon: <BsChatText />, link: "/chat" },
-];
-
 interface RequestedUser {
   displayName: string;
   photoUrl: string;
@@ -54,12 +56,32 @@ interface RequestedUser {
 export default function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
   const router = useRouter();
+  const path = router.pathname;
+  console.log("path", path);
 
   const { data: session } = useSession();
   const [docId, setDocId] = useState("");
   const [currentUser, setCurrentUser] = useState<any>({ friendRequests: [] });
   const [requestedUser, setRequestedUser] = useState<RequestedUser[]>();
   const [requestedDocIds, setRequestedDocIds] = useState<string[]>();
+
+  const Links = [
+    {
+      title: "Home",
+      icon: path.includes("home") ? <AiFillHome /> : <AiOutlineHome />,
+      link: "/home_page/Home",
+    },
+    {
+      title: "Person",
+      icon: path.includes("friends") ? <BsPersonFill /> : <BsPerson />,
+      link: "/friends",
+    },
+    {
+      title: "Person",
+      icon: path.includes("chat") ? <BsChatTextFill /> : <BsChatText />,
+      link: "/chat",
+    },
+  ];
 
   const NavLink = ({ children }: { children: any }) => (
     <span
@@ -139,32 +161,50 @@ export default function Navbar() {
 
   return (
     <>
-      <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
-        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          {/* <Box>Social media app</Box> */}
-          <SearchUsers />
-          <HStack spacing={8} alignItems={"center"}>
-            <HStack
+      <Box
+        alignItems={"center"}
+        bg={useColorModeValue("gray.100", "gray.900")}
+        px={4}
+        height={"15%"}
+      >
+        <Grid
+          templateColumns="repeat(3, 1fr)"
+          alignItems={"center"}
+          justifyContent={"space-between"}
+        >
+          <GridItem alignItems={"center"}>
+            <SearchUsers />
+          </GridItem>
+
+          <GridItem>
+            <Box
+              height={"100%"}
               as={"nav"}
-              spacing={6}
-              display={{ base: "none", md: "flex" }}
+              alignItems={"center"}
+              className="flex flex-row justify-center gap-8"
+              // display={{ base: "none", md: "flex" }}
             >
               {Links.map((link) => (
-                <div key={link.title}>
+                <Box key={link.title}>
                   <NavLink key={link.title}>{link}</NavLink>
-                </div>
+                </Box>
               ))}
-            </HStack>
-          </HStack>
-          <Flex alignItems={"center"}>
-            <Stack direction={"row"} spacing={5}>
+            </Box>
+          </GridItem>
+          <GridItem>
+            <Stack
+              className="relative"
+              justifyContent={"end"}
+              direction={"row"}
+              spacing={5}
+            >
               <Menu>
-                <MenuButton className="relative">
+                <MenuButton>
                   <IoMdNotificationsOutline className="text-[28px]" />
+                  <Text className="absolute w-4 h-4 text-[20px] font-bold text-white-500 rounded-[100%] text-center top-0 ml-5">
+                    {currentUser.friendRequests.length}
+                  </Text>
                 </MenuButton>
-                <Text className="absolute w-4 h-4 text-[15px] font-bold text-white-500 rounded-[100%] text-center top-4 ml-5">
-                  {currentUser.friendRequests.length}
-                </Text>
                 {currentUser &&
                   currentUser.friendRequests.length !== 0 &&
                   requestedUser &&
@@ -198,8 +238,12 @@ export default function Navbar() {
                     </MenuList>
                   )}
               </Menu>
-              <Button className="mt-2" onClick={toggleColorMode}>
-                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              <Button className="" onClick={toggleColorMode}>
+                {colorMode === "light" ? (
+                  <MoonIcon className="text-[23px]" />
+                ) : (
+                  <SunIcon className="text-[23px]" />
+                )}
               </Button>
 
               <Menu>
@@ -211,7 +255,7 @@ export default function Navbar() {
                   minW={0}
                 >
                   <Avatar size={"sm"} src={`${auth.currentUser?.photoURL}`} />
-                  <p>{auth.currentUser?.displayName}</p>
+                  {/* <p>{auth.currentUser?.displayName}</p> */}
                 </MenuButton>
                 <MenuList alignItems={"center"}>
                   <br />
@@ -223,7 +267,9 @@ export default function Navbar() {
                   </Center>
                   <br />
                   <Center>
-                    <p>{session?.user?.name}</p>
+                    <Text className="text-xl font-bold">
+                      {auth.currentUser?.displayName}
+                    </Text>
                   </Center>
                   <br />
                   <MenuDivider />
@@ -242,8 +288,8 @@ export default function Navbar() {
                 </MenuList>
               </Menu>
             </Stack>
-          </Flex>
-        </Flex>
+          </GridItem>
+        </Grid>
       </Box>
     </>
   );

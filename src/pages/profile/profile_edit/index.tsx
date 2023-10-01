@@ -163,9 +163,9 @@ export default function ProfileEdit() {
     <>
       <Navbar />
       <div className="flex justify-center mt-5 h-[85vh]">
-        <Card width={"xl"} minW={"md"} height={"md"}>
+        <Card boxShadow={"2xl"} width={"xl"} minW={"md"} height={"md"}>
           <CardBody className="flex flex-col items-center">
-            <Avatar size={"xl"} src={currentUserData?.photoURL} />
+            <Avatar size={"xl"} src={auth.currentUser?.photoURL} />
             <Box mt={5}>
               <Box className="flex justify-center">
                 <label htmlFor="file2" className="flex flex-row gap-6">
@@ -207,7 +207,7 @@ export default function ProfileEdit() {
                 <Box>
                   <Text
                     onClick={() => router.push("/profile/extra_info")}
-                    className="cursor-pointer w-[50%] font-semibold"
+                    className="cursor-pointer w-[50%] font-semibold text-blue-500 hover:text-blue-900"
                   >
                     Add extra info
                   </Text>
