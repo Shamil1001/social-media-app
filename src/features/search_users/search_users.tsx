@@ -58,7 +58,9 @@ export default function SearchUsers() {
       <div>
         <Input
           border="1px solid gray"
-          // boxShadow="xs"
+          width={"70%"}
+          minW={"200px"}
+          maxW={"80%"}
           value={search}
           onChange={handleSearch}
           placeholder="Search friends"
@@ -66,10 +68,11 @@ export default function SearchUsers() {
 
         {search.length !== 0 && userData && (
           <Card
-            // w="20%"
-            minW={210}
+            width={"22.5%"}
+            minW={200}
             mt="10px"
             p="10px"
+            zIndex={1}
             position="absolute"
             flex="flex-col"
             gap="10px"
