@@ -157,7 +157,7 @@ export default function ProfileEdit() {
     });
   };
 
-  console.log("currentUserData", currentUserData.photoUrl);
+  // console.log("currentUserData", currentUserData.photoUrl);
 
   return (
     <>

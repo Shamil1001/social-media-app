@@ -17,7 +17,7 @@ const Feed = () => {
       const fetchedPosts = snapshot.docs.map((doc: any) => doc.data());
       const ids = snapshot.docs.map((doc: any) => doc.id);
       const updatedPosts = fetchedPosts.sort(
-        (a: any, b: any) => a.timestampL?.toDate() - b.timestampL?.toDate()
+        (a: any, b: any) => b.timestampL?.toDate() - a.timestampL?.toDate()
       );
 
       setPosts(updatedPosts);
