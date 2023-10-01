@@ -81,6 +81,7 @@ export default function Sidebar() {
         height={"calc(100vh-200px)"}
         p={3}
         m={5}
+        boxShadow={"2xl"}
         className="relative flex flex-col gap-4"
         rounded={"md"}
       >

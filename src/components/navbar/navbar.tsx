@@ -201,9 +201,11 @@ export default function Navbar() {
               <Menu>
                 <MenuButton>
                   <IoMdNotificationsOutline className="text-[28px]" />
-                  <Text className="absolute w-4 h-4 text-[20px] font-bold text-white-500 rounded-[100%] text-center top-0 ml-5">
-                    {currentUser.friendRequests.length}
-                  </Text>
+                  {currentUser.friendRequests.length !== 0 && (
+                    <Text className="absolute w-5 h-5 text-[12px] font-bold text-white-500 rounded-[100%] text-center top-1 ml-4 bg-slate-700 text-white">
+                      {currentUser.friendRequests.length}
+                    </Text>
+                  )}
                 </MenuButton>
                 {currentUser &&
                   currentUser.friendRequests.length !== 0 &&

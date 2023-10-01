@@ -80,6 +80,7 @@ export default function ChatInput() {
       <Box className="flex flex-row gap-3 " p={2}>
         <Input
           variant="filled"
+          border={"1px"}
           placeholder="Type here..."
           onChange={(e: any) => setText(e.target.value)}
           value={text}
