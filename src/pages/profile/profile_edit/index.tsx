@@ -157,7 +157,7 @@ export default function ProfileEdit() {
     });
   };
 
-  console.log(selectedImage);
+  console.log("currentUserData", currentUserData.photoUrl);
 
   return (
     <>
@@ -165,7 +165,7 @@ export default function ProfileEdit() {
       <div className="flex justify-center mt-5 h-[85vh]">
         <Card boxShadow={"2xl"} width={"xl"} minW={"md"} height={"md"}>
           <CardBody className="flex flex-col items-center">
-            <Avatar size={"xl"} src={auth.currentUser?.photoURL} />
+            <Avatar size={"xl"} src={`${auth.currentUser?.photoURL}`} />
             <Box mt={5}>
               <Box className="flex justify-center">
                 <label htmlFor="file2" className="flex flex-row gap-6">
