@@ -7,25 +7,25 @@ import { ChatContext } from "@/context/ChatContext";
 export default function Chatbox() {
   const { data } = useContext(ChatContext);
 
-  console.log("daaaa", data);
+  console.log("dataa", data);
   return (
     <>
-      <Card w={"100%"} m={5}>
-        <CardHeader p={3}>
-          <Box className="flex items-center gap-3">
-            <Avatar
-              name={data.user.displayName}
-              size={"md"}
-              src={`${data.user.photoUrl}`}
-            />
-            <Text className="text-lg font-bold">
-              {data.chatId
-                ? data.user.displayName
-                : "Please, select a friend to chat"}
-            </Text>
-          </Box>
-        </CardHeader>
-        {data.chatId && (
+      {data.chatId && (
+        <Card w={"100%"} m={5}>
+          <CardHeader p={3}>
+            <Box className="flex items-center gap-3">
+              <Avatar
+                name={data.user.displayName}
+                size={"md"}
+                src={`${data.user.photoUrl}`}
+              />
+              <Text className="text-lg font-bold">
+                {data.chatId
+                  ? data.user.displayName
+                  : "Please, select a friend to chat"}
+              </Text>
+            </Box>
+          </CardHeader>
           <>
             <Divider />
             <Box
@@ -36,8 +36,8 @@ export default function Chatbox() {
             </Box>
             <ChatInput />
           </>
-        )}
-      </Card>
+        </Card>
+      )}
     </>
   );
 }

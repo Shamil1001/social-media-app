@@ -38,6 +38,8 @@ export default function Profile() {
       }),
     []
   );
+
+  console.log("currentUser", currentUserData);
   return (
     <>
       {/* <div className="flex justify-center mt-5"> */}
@@ -73,16 +75,17 @@ export default function Profile() {
                 </Heading>
                 {currentUserData.first_name && currentUserData.last_name && (
                   <Text color={"gray.500"}>
+                    Full name:{" "}
                     {currentUserData.first_name +
                       " " +
                       currentUserData.last_name}
                   </Text>
                 )}
-                {/* {currentUserData.age && (
+                {currentUserData.birthday && (
                   <Text color={"gray.500"}>
-                    {currentUserData.age} years old
+                    Birthday: {currentUserData.birthday}
                   </Text>
-                )} */}
+                )}
               </Stack>
 
               <Stack direction={"row"} justify={"center"} spacing={6}>

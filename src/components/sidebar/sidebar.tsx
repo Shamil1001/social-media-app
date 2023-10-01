@@ -75,14 +75,16 @@ export default function Sidebar() {
   return (
     <>
       <Card
-        w={"20%"}
-        minW={220}
+        w={"22.5%"}
+        minW={200}
+        maxW={"22.5%"}
         h={"88vh"}
         p={3}
+        m={5}
         className="relative flex flex-col gap-4"
-        rounded={"0px"}
+        rounded={"md"}
       >
-        <Text className="font-bold">Friends</Text>
+        <Text className="font-semibold text-[20px]">My Friends</Text>
         <Divider />
         {/* className="flex flex-row items-center gap-2 p-2 rounded cursor-pointer hover:bg-slate-700" */}
         {sidebarUser &&
