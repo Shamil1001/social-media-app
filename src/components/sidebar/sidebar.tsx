@@ -78,7 +78,7 @@ export default function Sidebar() {
         w={"22.5%"}
         minW={200}
         maxW={"22.5%"}
-        h={"88vh"}
+        height={"calc(100vh-200px)"}
         p={3}
         m={5}
         className="relative flex flex-col gap-4"

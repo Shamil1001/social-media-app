@@ -11,7 +11,7 @@ export default function Chatbox() {
   return (
     <>
       {data.chatId && (
-        <Card w={"100%"} m={5}>
+        <Card w={"60%"} m={5} className="h-[calc(78vh)]">
           <CardHeader p={3}>
             <Box className="flex items-center gap-3">
               <Avatar
