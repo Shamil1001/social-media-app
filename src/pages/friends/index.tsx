@@ -119,8 +119,8 @@ export default function Chat() {
         <Card
           boxShadow={"2xl"}
           variant={"outline"}
-          className="w-[50%] m-5"
-          minW={"300px"}
+          className="w-[40%] m-5"
+          minW={"350px"}
         >
           <CardHeader className="text-lg font-bold">My friends</CardHeader>
           <Divider />
