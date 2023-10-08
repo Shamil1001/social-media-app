@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -35,7 +36,8 @@
 body {
   color: black;
   background-color: #01213f;
-  height: 100vh;
+  height: 100%;
+  width: calc(100vw-100px);
   /* background: linear-gradient(
       to bottom,
       transparent,

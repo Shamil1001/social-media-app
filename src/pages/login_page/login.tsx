@@ -9,7 +9,7 @@ import {
   Button,
   Heading,
 } from "@chakra-ui/react";
-
+import toast, { Toaster } from "react-hot-toast";
 import {
   UserOutlined,
   EyeInvisibleOutlined,
@@ -42,9 +42,11 @@ const Login = () => {
       loginInformation.email.length === 0 ||
       loginInformation.password.length === 0
     ) {
-      setError("Please, fill the blanks");
+      toast.error("Please, fill the blanks");
+      // setError("Please, fill the blanks");
     } else if (!loginInformation.email.includes("@")) {
-      setError("Email or password error");
+      // setError("Email or password error");
+      toast.error("Email or password error");
     } else {
       dispatch(handleLogin(loginInformation));
     }
@@ -58,6 +60,7 @@ const Login = () => {
   return (
     <>
       <NavbarLogin />
+      <Toaster position="top-right" reverseOrder={false} />
       <div className="flex flex-col items-center justify-center w-full h-[90vh]">
         <Card
           boxShadow="2xl"
@@ -75,7 +78,7 @@ const Login = () => {
           <CardBody>
             <div className="flex flex-col gap-[15px]">
               <Input
-                placeholder="email"
+                placeholder="*****@gmail.com"
                 value={loginInformation.email}
                 onChange={(e) =>
                   setLoginInformation({
@@ -85,7 +88,7 @@ const Login = () => {
                 }
               />
               <Input.Password
-                placeholder="input password"
+                placeholder="1234****"
                 value={loginInformation.password}
                 onKeyDown={(e) => handlePress(e)}
                 iconRender={(visible) =>

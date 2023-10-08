@@ -78,7 +78,7 @@ export default function Sidebar() {
         w={"22.5%"}
         minW={200}
         maxW={"22.5%"}
-        height={"calc(100vh-200px)"}
+        height={"calc(75vh)"}
         p={3}
         m={5}
         boxShadow={"2xl"}

@@ -17,9 +17,6 @@ export default function App({
       <SessionProvider>
         <ChatContextProvider>
           <ChakraProvider>
-            {/* <span>Shamil</span> */}
-
-            {/* {auth.currentUser && <Navbar />} */}
             <Component {...pageProps} />
           </ChakraProvider>
         </ChatContextProvider>

@@ -21,9 +21,10 @@ import {
   Divider,
   Grid,
   GridItem,
+  IconButton,
 } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { signOut } from "next-auth/react";
 
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -57,7 +58,7 @@ export default function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
   const router = useRouter();
   const path = router.pathname;
-  console.log("path", path);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { data: session } = useSession();
   const [docId, setDocId] = useState("");
@@ -165,14 +166,34 @@ export default function Navbar() {
         alignItems={"center"}
         bg={useColorModeValue("gray.100", "gray.900")}
         px={4}
+        width={"100%"}
         height={"15%"}
+        // height={isOpen ? "15%" : "100px"}
+        minH={"14%"}
       >
         <Grid
           templateColumns="repeat(3, 1fr)"
           alignItems={"center"}
           justifyContent={"space-between"}
         >
-          <GridItem alignItems={"center"}>
+          <IconButton
+            size={"md"}
+            width={"12"}
+            icon={
+              isOpen ? (
+                <CloseIcon fontSize={"xl"} />
+              ) : (
+                <HamburgerIcon fontSize={"2xl"} />
+              )
+            }
+            aria-label={"Open Menu"}
+            display={{ md: "none" }}
+            onClick={isOpen ? onClose : onOpen}
+          />
+          <GridItem
+            alignItems={"center"}
+            display={{ base: "none", md: "flex" }}
+          >
             <SearchUsers />
           </GridItem>
 
@@ -182,7 +203,7 @@ export default function Navbar() {
               as={"nav"}
               alignItems={"center"}
               className="flex flex-row justify-center gap-8"
-              // display={{ base: "none", md: "flex" }}
+              display={{ base: "none", md: "flex" }}
             >
               {Links.map((link) => (
                 <Box key={link.title}>
@@ -291,6 +312,16 @@ export default function Navbar() {
               </Menu>
             </Stack>
           </GridItem>
+          {isOpen ? (
+            <Box pb={4} display={{ md: "none" }}>
+              <SearchUsers />
+              <Stack as={"nav"} spacing={4}>
+                {Links.map((link) => (
+                  <NavLink key={link.title}>{link}</NavLink>
+                ))}
+              </Stack>
+            </Box>
+          ) : null}
         </Grid>
       </Box>
     </>

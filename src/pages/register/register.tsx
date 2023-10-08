@@ -7,6 +7,7 @@ import {
   EyeTwoTone,
   PlusOutlined,
 } from "@ant-design/icons";
+import toast, { Toaster } from "react-hot-toast";
 import {
   Card,
   CardHeader,
@@ -87,13 +88,16 @@ const Register = () => {
       registerInformation.password.length == 0 ||
       registerInformation.username.length == 0
     ) {
-      setError("Please, fill the blanks");
+      // setError("Please, fill the blanks");
+      toast.error("Please, fill the blanks");
     } else if (!registerInformation.email.includes("@")) {
-      setError("Email or password error");
+      // setError("Email or password error");
+      toast.error("Email or password error");
     } else if (
       registerInformation.password !== registerInformation.confirmPassword
     ) {
-      setError("Password error");
+      toast.error("Password error");
+      // setError("Password error");
     } else {
       dispatch(handleUploadUserData(registerInformation));
     }
@@ -108,6 +112,7 @@ const Register = () => {
   return (
     <>
       <NavbarLogin />
+      <Toaster position="top-right" reverseOrder={false} />
       <main className="relative max-w-[1400px] h-[90vh] mx-auto">
         <div className="flex flex-col items-center justify-center w-full h-full">
           <Card
@@ -125,7 +130,7 @@ const Register = () => {
             <div className="flex items-center justify-center mb-3">
               <label htmlFor="file" className="flex flex-row gap-6">
                 {/* <Button>Add file</Button> */}
-                <span className="p-2 bg-blue-400 rounded cursor-pointer">
+                <span className="p-2 text-white bg-blue-400 rounded cursor-pointer hover:bg-blue-500">
                   Select image
                 </span>
                 {/* <BsFillImageFill className="text-3xl cursor-pointer" /> */}

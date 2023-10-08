@@ -136,7 +136,7 @@ export default function HomePage() {
   return (
     <>
       {auth.currentUser && (
-        <div className="h-[calc(100vh)]">
+        <div>
           <Navbar />
           <div className="flex flex-col items-center mt-5 mb-14">
             <Card maxW={"md"} boxShadow="2xl">
