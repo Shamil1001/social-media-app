@@ -134,11 +134,11 @@ export default function HomePage() {
   };
 
   return (
-    <>
+    <div className="">
       {auth.currentUser && (
-        <div>
+        <>
           <Navbar />
-          <div className="flex flex-col items-center mt-5 mb-14">
+          <div className="flex flex-col items-center w-full mt-5 mb-14">
             <Card maxW={"md"} boxShadow="2xl">
               <CardBody w={"md"}>
                 <div className="flex flex-row w-full gap-5">
@@ -217,8 +217,8 @@ export default function HomePage() {
           </div>
 
           <Feed />
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 }

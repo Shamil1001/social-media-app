@@ -37,7 +37,7 @@ body {
   color: black;
   background-color: #01213f;
   height: 100%;
-  width: calc(100vw-100px);
+  /* width: calc(100%-100px); */
   /* background: linear-gradient(
       to bottom,
       transparent,
