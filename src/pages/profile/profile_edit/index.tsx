@@ -163,7 +163,7 @@ export default function ProfileEdit() {
     <>
       <Navbar />
       <div className="flex justify-center mt-5 h-[85vh]">
-        <Card boxShadow={"2xl"} width={"xl"} minW={"md"} height={"md"}>
+        <Card boxShadow={"2xl"} width={"md"} minW={"md"} height={"md"}>
           <CardBody className="flex flex-col items-center">
             <Avatar size={"xl"} src={currentUserData?.photoURL} />
             <Box mt={5}>

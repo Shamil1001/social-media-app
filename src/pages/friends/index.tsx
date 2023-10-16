@@ -115,12 +115,15 @@ export default function Chat() {
   return (
     <div className="">
       <Navbar />
-      <Box w={"100%"} className="flex justify-center h-[calc(100vh-70px)]">
+      <Box
+        w={"100%"}
+        className="flex justify-center mobileS:h-[calc(100vh-70px)] tablet:h-full"
+      >
         <Card
           boxShadow={"2xl"}
           variant={"outline"}
-          className="w-[40%] m-5"
-          minW={"400px"}
+          className="w-[75%] m-5"
+          // minW={"400px"}
         >
           <CardHeader className="text-lg font-bold">My friends</CardHeader>
           <Divider />

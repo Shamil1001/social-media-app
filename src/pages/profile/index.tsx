@@ -48,16 +48,17 @@ export default function Profile() {
         <Center>
           <Box
             maxW={"40%"}
-            marginTop={"10"}
-            w={"full"}
-            h={"75vh"}
+            marginTop={"5"}
+            marginBottom={"5"}
+            w={{ base: "70vw", md: "full" }}
+            h={{ base: "85vh", md: "80vh" }}
             // eslint-disable-next-line react-hooks/rules-of-hooks
             bg={useColorModeValue("white", "gray.800")}
             boxShadow={"2xl"}
             rounded={"md"}
             overflow={"hidden"}
           >
-            <Flex justify={"center"} mt={4}>
+            <Flex justify={"center"} mt={6}>
               <Avatar
                 size={"2xl"}
                 src={currentUserData.photoUrl}
