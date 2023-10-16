@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  
+
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -17,7 +17,7 @@
   }
 }
 
-/* Custom scrollbar styles */
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 10px;
   display: none;
@@ -37,11 +37,5 @@ body {
   color: black;
   background-color: #01213f;
   height: 100%;
-  /* width: calc(100%-100px); */
-  /* background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
+  
 }

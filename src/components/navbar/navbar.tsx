@@ -166,9 +166,12 @@ export default function Navbar() {
         alignItems={"center"}
         bg={useColorModeValue("gray.100", "gray.900")}
         px={4}
-        width={"100%"}
-        height={"15%"}
-        // height={isOpen ? "15%" : "100px"}
+        // width={"100%"}
+        // height={"15%"}
+        // className="mobileS:w-[calc(120%)] tablet:w-full"
+        height={isOpen ? "15%" : "100px"}
+        // paddingTop={{ base: "30px", md: "0px" }}
+        // paddingTop={isOpen ? "0" : "30px"}
         minH={"14%"}
       >
         <Grid
@@ -176,7 +179,7 @@ export default function Navbar() {
           alignItems={"center"}
           justifyContent={"space-between"}
         >
-          <IconButton
+          {/* <IconButton
             size={"md"}
             width={"12"}
             icon={
@@ -189,10 +192,10 @@ export default function Navbar() {
             aria-label={"Open Menu"}
             display={{ md: "none" }}
             onClick={isOpen ? onClose : onOpen}
-          />
+          /> */}
           <GridItem
             alignItems={"center"}
-            display={{ base: "none", md: "flex" }}
+            // display={{ base: "none", md: "flex" }}
           >
             <SearchUsers />
           </GridItem>
@@ -203,7 +206,7 @@ export default function Navbar() {
               as={"nav"}
               alignItems={"center"}
               className="flex flex-row justify-center gap-8"
-              display={{ base: "none", md: "flex" }}
+              // display={{ base: "none", md: "flex" }}
             >
               {Links.map((link) => (
                 <Box key={link.title}>
@@ -312,7 +315,7 @@ export default function Navbar() {
               </Menu>
             </Stack>
           </GridItem>
-          {isOpen ? (
+          {/* {isOpen ? (
             <Box pb={4} display={{ md: "none" }}>
               <SearchUsers />
               <Stack as={"nav"} spacing={4}>
@@ -321,7 +324,7 @@ export default function Navbar() {
                 ))}
               </Stack>
             </Box>
-          ) : null}
+          ) : null} */}
         </Grid>
       </Box>
     </>
