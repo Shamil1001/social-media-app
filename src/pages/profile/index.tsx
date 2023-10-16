@@ -39,7 +39,6 @@ export default function Profile() {
     []
   );
 
-  console.log("currentUser", currentUserData);
   return (
     <>
       {/* <div className="flex justify-center mt-5"> */}
@@ -51,7 +50,7 @@ export default function Profile() {
             marginTop={"5"}
             marginBottom={"5"}
             w={{ base: "70vw", md: "full" }}
-            h={{ base: "85vh", md: "80vh" }}
+            h={{ base: "55vh", md: "80vh" }}
             // eslint-disable-next-line react-hooks/rules-of-hooks
             bg={useColorModeValue("white", "gray.800")}
             boxShadow={"2xl"}
