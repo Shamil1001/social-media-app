@@ -3,14 +3,18 @@ import Navbar from "@/components/navbar/navbar";
 // import Sidebar from "../../components/sidebar/index";
 import Sidebar from "../../components/sidebar/sidebar";
 import { Box } from "@chakra-ui/react";
+import { useState } from "react";
 
 export default function Chat() {
+  const [sidebarDisplay, setSidebarDisplay] = useState(false);
   return (
     <>
       <Navbar />
       <Box className="flex flex-row">
-        <Sidebar />
-        <Chatbox />
+        {sidebarDisplay && <Sidebar setSidebarDisplay={setSidebarDisplay} />}
+        {!sidebarDisplay && <Chatbox setSidebarDisplay={setSidebarDisplay} />}
+        {/* <Sidebar setSidebarDisplay={setSidebarDisplay} />
+        <Chatbox setSidebarDisplay={setSidebarDisplay} /> */}
       </Box>
     </>
   );

@@ -14,7 +14,7 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { ChatContext } from "@/context/ChatContext";
 
-export default function Sidebar() {
+export default function Sidebar({ setSidebarDisplay }: any) {
   const currentUser: any = auth.currentUser;
   const { dispatch } = useContext(ChatContext);
   const [sidebarUser, setSidebarUsers] = useState<any>();
@@ -70,44 +70,49 @@ export default function Sidebar() {
       console.log(err);
     }
     dispatch({ type: "CHANGE_USER", payload: user });
+    setSidebarDisplay(false);
   };
 
   return (
     <>
-      <Card
-        w={"22.5%"}
-        minW={200}
-        maxW={"22.5%"}
-        height={"calc(75vh)"}
-        p={3}
-        m={5}
-        boxShadow={"2xl"}
-        className="relative flex flex-col gap-4"
-        rounded={"md"}
-      >
-        <Text className="font-semibold text-[20px]">My Friends</Text>
-        <Divider />
-        {/* className="flex flex-row items-center gap-2 p-2 rounded cursor-pointer hover:bg-slate-700" */}
-        {sidebarUser &&
-          sidebarUser.map((item: any) => (
-            <>
-              <Card
-                key={item.user.uid}
-                variant={"outline"}
-                onClick={() => handleSelect(item.user)}
-              >
-                <Box className="flex flex-row items-center gap-3 p-3 cursor-pointer">
-                  <Avatar
-                    name={item.user.displayName}
-                    size={"sm"}
-                    src={`${item.user.photoUrl}`}
-                  />
-                  <Text>{item.user.displayName}</Text>
-                </Box>
-              </Card>
-            </>
-          ))}
-      </Card>
+      <div className="flex justify-center w-full">
+        <Card
+          w={{ base: "70%", md: "40%" }}
+          minW={200}
+          maxW={{ base: "70%", md: "40%" }}
+          display={{}}
+          p={3}
+          m={5}
+          boxShadow={"2xl"}
+          className="relative flex flex-col gap-4 tablet:h-[calc(75vh)] mobileS:h-[calc(100vh)]"
+          rounded={"md"}
+        >
+          <Text className="font-semibold text-[20px]">
+            Choose your friend to chat
+          </Text>
+          <Divider />
+          {/* className="flex flex-row items-center gap-2 p-2 rounded cursor-pointer hover:bg-slate-700" */}
+          {sidebarUser &&
+            sidebarUser.map((item: any) => (
+              <>
+                <Card
+                  key={item.user.uid}
+                  variant={"outline"}
+                  onClick={() => handleSelect(item.user)}
+                >
+                  <Box className="flex flex-row items-center gap-3 p-3 cursor-pointer">
+                    <Avatar
+                      name={item.user.displayName}
+                      size={"sm"}
+                      src={`${item.user.photoUrl}`}
+                    />
+                    <Text>{item.user.displayName}</Text>
+                  </Box>
+                </Card>
+              </>
+            ))}
+        </Card>
+      </div>{" "}
     </>
   );
 }

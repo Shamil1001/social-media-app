@@ -1,7 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import Feed from "@/components/feed/feed";
 import Navbar from "@/components/navbar/navbar";
-import { CardBody, Card, Avatar, Textarea, Button } from "@chakra-ui/react";
+import {
+  CardBody,
+  Card,
+  Avatar,
+  Textarea,
+  Button,
+  Center,
+} from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState, useRef, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -23,6 +30,7 @@ import emojiData from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { IUser_Data } from "@/shared/types/IUser_Data";
 import { useDispatch, useSelector } from "react-redux";
+import SimpleSidebar from "@/components/navbar/nav2";
 
 export default function HomePage() {
   const [user, setUser] = useState<IUser_Data>();
@@ -137,8 +145,10 @@ export default function HomePage() {
     <div className="">
       {auth.currentUser && (
         <>
+          {/* <SimpleSidebar /> */}
           <Navbar />
-          <div className="flex flex-col items-center w-full mt-5 mb-14">
+          {/* <div className="flex flex-col items-center w-full mt-5 mb-14"> */}
+          <Center className="flex flex-col items-center w-full mt-5 mb-14">
             <Card maxW={"md"} boxShadow="2xl">
               <CardBody w={"md"}>
                 <div className="flex flex-row w-full gap-5">
@@ -214,7 +224,8 @@ export default function HomePage() {
                 </div>
               </CardBody>
             </Card>
-          </div>
+          </Center>
+          {/* </div> */}
 
           <Feed />
         </>

@@ -22,6 +22,8 @@ import {
   Grid,
   GridItem,
   IconButton,
+  Drawer,
+  DrawerContent,
 } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
@@ -315,6 +317,25 @@ export default function Navbar() {
               </Menu>
             </Stack>
           </GridItem>
+          {/* <Drawer
+            isOpen={isOpen}
+            placement="left"
+            onClose={onClose}
+            returnFocusOnClose={false}
+            onOverlayClick={onClose}
+            size="full"
+          >
+            <DrawerContent>
+              <Box pb={4} display={{ md: "none" }}>
+                <SearchUsers />
+                <Stack as={"nav"} spacing={4}>
+                  {Links.map((link) => (
+                    <NavLink key={link.title}>{link}</NavLink>
+                  ))}
+                </Stack>
+              </Box>
+            </DrawerContent>
+          </Drawer> */}
           {/* {isOpen ? (
             <Box pb={4} display={{ md: "none" }}>
               <SearchUsers />
