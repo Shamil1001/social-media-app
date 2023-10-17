@@ -15,7 +15,6 @@ import { ChatContext } from "@/context/ChatContext";
 export default function Chatbox({ setSidebarDisplay }: any) {
   const { data } = useContext(ChatContext);
 
-  console.log("dataa", data);
   return (
     <>
       {data.chatId && (
@@ -24,7 +23,7 @@ export default function Chatbox({ setSidebarDisplay }: any) {
             boxShadow={"2xl"}
             w={{ base: "80%", md: "60%" }}
             m={5}
-            className="mobileM:h-[calc(140vh)] tablet:h-[calc(75vh)] "
+            className="mobileM:h-[calc(120vh)] tablet:h-[calc(75vh)] "
           >
             <CardHeader p={3} onClick={() => setSidebarDisplay(true)}>
               <Box className="flex items-center gap-3">
@@ -43,7 +42,7 @@ export default function Chatbox({ setSidebarDisplay }: any) {
             <>
               <Divider />
               <Box
-                className="h-[calc(100%)] max-h-[75%] overflow-y-scroll custom-scrollbar"
+                className="h-[calc(100%)] max-h-[85%] overflow-y-scroll custom-scrollbar"
                 p={5}
               >
                 <Messages />

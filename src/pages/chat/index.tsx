@@ -6,7 +6,7 @@ import { Box } from "@chakra-ui/react";
 import { useState } from "react";
 
 export default function Chat() {
-  const [sidebarDisplay, setSidebarDisplay] = useState(false);
+  const [sidebarDisplay, setSidebarDisplay] = useState(true);
   return (
     <>
       <Navbar />
