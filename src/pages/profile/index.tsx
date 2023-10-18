@@ -44,13 +44,13 @@ export default function Profile() {
       {/* <div className="flex justify-center mt-5"> */}
       <Navbar />
       {currentUserData && (
-        <Center>
+        <Center className="h-full">
           <Box
-            maxW={"40%"}
+            maxW={"100%"}
             marginTop={"5"}
             marginBottom={"5"}
-            w={{ base: "70vw", md: "full" }}
-            h={{ base: "55vh", md: "80vh" }}
+            w={{ base: "100vw", md: "50%" }}
+            h={{ base: "60vh", xs: "70vh", md: "80vh" }}
             // eslint-disable-next-line react-hooks/rules-of-hooks
             bg={useColorModeValue("white", "gray.800")}
             boxShadow={"2xl"}
@@ -109,7 +109,7 @@ export default function Profile() {
                 </Stack>
               </Stack>
             </Box>
-            <Box className="flex items-center justify-center mt-3">
+            <Box className="flex items-center justify-center my-5">
               <Link href="/profile/profile_edit">
                 <Button colorScheme="blue">Edit profile</Button>
               </Link>

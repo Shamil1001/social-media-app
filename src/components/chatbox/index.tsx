@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Button,
   Card,
   CardHeader,
   Center,
@@ -11,6 +12,7 @@ import ChatInput from "../chatInput";
 import Messages from "../messages";
 import { useContext, useEffect } from "react";
 import { ChatContext } from "@/context/ChatContext";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 export default function Chatbox({ setSidebarDisplay }: any) {
   const { data } = useContext(ChatContext);
@@ -25,7 +27,7 @@ export default function Chatbox({ setSidebarDisplay }: any) {
             m={5}
             className="mobileM:h-[calc(120vh)] tablet:h-[calc(75vh)] "
           >
-            <CardHeader p={3} onClick={() => setSidebarDisplay(true)}>
+            <CardHeader p={3} className="flex items-center justify-between">
               <Box className="flex items-center gap-3">
                 <Avatar
                   name={data.user.displayName}
@@ -38,6 +40,14 @@ export default function Chatbox({ setSidebarDisplay }: any) {
                     : "Please, select a friend to chat"}
                 </Text>
               </Box>
+              <Button
+                onClick={() => setSidebarDisplay(true)}
+                variant="solid"
+                colorScheme="blue"
+              >
+                <AiOutlineArrowLeft />
+                {/* <p>Go back</p> */}
+              </Button>
             </CardHeader>
             <>
               <Divider />

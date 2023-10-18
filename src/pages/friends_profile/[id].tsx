@@ -141,10 +141,11 @@ export default function Friends() {
       <Navbar />
       {selectedUser && (
         <>
-          <Center py={8} h={"85vh"}>
+          <Center py={8} h={"80vh"}>
             <Box
-              maxW={"35%"}
+              maxW={{ base: "45%", md: "35%" }}
               w={"full"}
+              h={{ base: "60%", xs: "80%", md: "100%" }}
               // eslint-disable-next-line react-hooks/rules-of-hooks
               bg={useColorModeValue("white", "gray.800")}
               boxShadow={"2xl"}
