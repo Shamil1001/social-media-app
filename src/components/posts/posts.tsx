@@ -334,7 +334,7 @@ export default function Post({ post, userData }: PostProps) {
                         <div className="flex flex-row items-center gap-5">
                           <div className="flex flex-col gap-2 m-3">
                             <Avatar
-                              name={post.displayName}
+                              name={comment.displayName}
                               src={comment.photoUrl}
                             />
                             {/* <img width={"30px"} src={comment.photoUrl} /> */}
