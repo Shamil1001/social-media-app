@@ -76,12 +76,19 @@ export default function ChatInput() {
     setImg(null);
   };
 
+  const handlePress = (e: any) => {
+    if (e.key == "Enter") {
+      handleSend();
+    }
+  };
+
   return (
     <>
       <Box className="flex flex-row gap-3 " p={2}>
         <Input
           variant="filled"
           border={"1px"}
+          onKeyDown={(e) => handlePress(e)}
           placeholder="Type here..."
           onChange={(e: any) => setText(e.target.value)}
           value={text}
