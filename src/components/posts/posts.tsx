@@ -48,6 +48,7 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import EditPost from "@/features/edit_post";
 import CommentModal from "@/features/delete_modal";
+import { useRouter } from "next/router";
 
 interface PostProps {
   post: any;
@@ -207,6 +208,8 @@ export default function Post({ post, userData }: PostProps) {
     }
   };
 
+  const router = useRouter();
+
   return (
     <>
       {currentUserData &&
@@ -216,9 +219,21 @@ export default function Post({ post, userData }: PostProps) {
             <CardHeader>
               <Flex>
                 <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-                  <Avatar name={post.displayName} src={post.userImg} />
+                  <Avatar
+                    onClick={() =>
+                      router.push(`/friends_profile/${post.userId}`)
+                    }
+                    cursor="pointer"
+                    name={post.displayName}
+                    src={post.userImg}
+                  />
 
-                  <Box>
+                  <Box
+                    cursor="pointer"
+                    onClick={() =>
+                      router.push(`/friends_profile/${post.userId}`)
+                    }
+                  >
                     {/* {post.displayName} */}
                     <Heading size="md">{post.displayName}</Heading>
                     {/* <p>@{post.displayName.toLowerCase()}</p> */}

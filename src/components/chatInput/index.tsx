@@ -13,6 +13,7 @@ import {
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { error } from "console";
+import { FiSend } from "react-icons/fi";
 
 export default function ChatInput() {
   const [text, setText] = useState<any>();
@@ -85,7 +86,7 @@ export default function ChatInput() {
           onChange={(e: any) => setText(e.target.value)}
           value={text}
         />
-        <input
+        {/* <input
           type="file"
           id="file"
           className="hidden"
@@ -93,9 +94,14 @@ export default function ChatInput() {
         />
         <label htmlFor="file" className="cursor-pointer">
           <BsCardImage fontSize={30} />
-        </label>
-        <Button variant="solid" colorScheme="blue" onClick={handleSend}>
-          Send
+        </label> */}
+        <Button
+          variant="solid"
+          isDisabled={!text && true}
+          colorScheme="blue"
+          onClick={handleSend}
+        >
+          <FiSend />
         </Button>
       </Box>
     </>
