@@ -84,12 +84,10 @@ export default function Sidebar({ setSidebarDisplay }: any) {
           p={3}
           m={5}
           boxShadow={"2xl"}
-          className="relative flex flex-col gap-4 tablet:h-[calc(75vh)] mobileS:h-[calc(100vh)]"
+          className="relative flex flex-col gap-4 tablet:h-[calc(75vh)] mobileS:h-[calc(70vh)]"
           rounded={"md"}
         >
-          <Text className="font-semibold text-[20px]">
-            Choose your friend to chat
-          </Text>
+          <Text className="font-semibold text-[20px]">Friends</Text>
           <Divider />
           {/* className="flex flex-row items-center gap-2 p-2 rounded cursor-pointer hover:bg-slate-700" */}
           {sidebarUser &&

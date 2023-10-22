@@ -166,7 +166,7 @@ export default function ProfileEdit() {
         <Card
           boxShadow={"2xl"}
           // width={"md"}
-          minW={{ base: "sm", md: "md" }}
+          minW={{ base: "xs", md: "md" }}
           height={"md"}
         >
           <CardBody className="flex flex-col items-center">

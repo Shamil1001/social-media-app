@@ -143,7 +143,7 @@ export default function Friends() {
         <>
           <Center py={8} h={"80vh"}>
             <Box
-              maxW={{ base: "45%", md: "35%" }}
+              maxW={{ base: "55%", md: "35%" }}
               w={"full"}
               h={{ base: "60%", xs: "80%", md: "100%" }}
               // eslint-disable-next-line react-hooks/rules-of-hooks
