@@ -111,7 +111,7 @@ export default function ExtraInfo() {
           boxShadow={"2xl"}
           marginTop={"20px"}
           h={{ base: "60vh", xs: "70vh", md: "85vh" }}
-          w={{ base: "70%", md: "50%" }}
+          w={{ base: "95%", md: "50%" }}
         >
           <CardHeader className="font-semibold">About me</CardHeader>
           <Divider />

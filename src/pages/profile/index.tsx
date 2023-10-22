@@ -49,8 +49,8 @@ export default function Profile() {
             maxW={"100%"}
             marginTop={"5"}
             marginBottom={"5"}
-            w={{ base: "100vw", md: "50%" }}
-            h={{ base: "60vh", xs: "70vh", md: "80vh" }}
+            w={{ base: "70vw", md: "50%" }}
+            h={{ base: "50vh", xs: "70vh", md: "80vh" }}
             // eslint-disable-next-line react-hooks/rules-of-hooks
             bg={useColorModeValue("white", "gray.800")}
             boxShadow={"2xl"}

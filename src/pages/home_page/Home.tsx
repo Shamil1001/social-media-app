@@ -140,6 +140,7 @@ export default function HomePage() {
     <div className="">
       {auth.currentUser && (
         <>
+          {/* <SimpleSidebar /> */}
           <Navbar />
           <Center className="flex flex-col items-center w-full mt-5 mb-14">
             <Card maxW={{ base: "sm", md: "md" }} boxShadow="2xl">

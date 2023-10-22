@@ -99,7 +99,7 @@ export default function Chat() {
           [combinedUid + ".date"]: serverTimestamp(),
         });
       }
-      console.log("user", combinedUid);
+      // console.log("user", combinedUid);
       router.push("chat");
     } catch (err) {
       console.log(err);
@@ -122,7 +122,8 @@ export default function Chat() {
         <Card
           boxShadow={"2xl"}
           variant={"outline"}
-          className="w-[75%] m-5"
+          className="w-[100%] m-5"
+          maxW={{ base: "md" }}
           // minW={"400px"}
         >
           <CardHeader className="text-lg font-bold">My friends</CardHeader>
@@ -134,8 +135,10 @@ export default function Chat() {
                   <Card variant={"filled"} key={item.user.uid}>
                     <Box className="flex flex-row items-center justify-between h-24 p-2 rounded-md ">
                       <Box
+                        flexDirection={{ base: "column", md: "row" }}
+                        alignItems={{ md: "center" }}
                         onClick={() => handleSelectFriend(item.user)}
-                        className="flex flex-row items-center gap-2 cursor-pointer"
+                        className="flex gap-2 cursor-pointer"
                       >
                         <Avatar
                           name={item.user.displayName}
@@ -146,7 +149,10 @@ export default function Chat() {
                           {item.user.displayName}
                         </Text>
                       </Box>
-                      <Box className="flex flex-row gap-5">
+                      <Box
+                        // display={{ base: "none" }}
+                        className="flex flex-row gap-3"
+                      >
                         <Button
                           onClick={() => handleSelect(item.user)}
                           colorScheme="blue"

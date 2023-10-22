@@ -23,9 +23,9 @@ export default function Chatbox({ setSidebarDisplay }: any) {
         <div className="flex items-center justify-center w-full h-full">
           <Card
             boxShadow={"2xl"}
-            w={{ base: "80%", md: "60%" }}
+            w={{ base: "90%", md: "60%" }}
             m={5}
-            className="mobileM:h-[calc(120vh)] tablet:h-[calc(75vh)] "
+            className="mobileM:h-[calc(90vh)] tablet:h-[calc(75vh)] "
           >
             <CardHeader p={3} className="flex items-center justify-between">
               <Box className="flex items-center gap-3">
