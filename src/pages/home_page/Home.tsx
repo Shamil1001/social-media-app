@@ -8,6 +8,7 @@ import {
   Textarea,
   Button,
   Center,
+  Box,
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState, useRef, useEffect } from "react";
@@ -140,19 +141,22 @@ export default function HomePage() {
     <div className="">
       {auth.currentUser && (
         <>
+          {/* maxW={{ base: "xs", md: "md" }} */}
+          {/* maxW={{ base: "sm", md: "md" }} */}
+          {/* maxW={{ base: "xs", md: "md" }} */}
           {/* <SimpleSidebar /> */}
           <Navbar />
           <Center className="flex flex-col items-center w-full mt-5 mb-14">
-            <Card maxW={{ base: "sm", md: "md" }} boxShadow="2xl">
-              <CardBody w={"md"} maxW={{ base: "sm", md: "md" }}>
+            <Card boxShadow="2xl" maxW={{ base: "xs", md: "md" }} w={"100%"}>
+              <CardBody>
                 <div className="flex flex-row w-full gap-5">
                   <Avatar size={"md"} src={`${auth.currentUser?.photoURL}`} />
                   {/* <textarea placeholder=></textarea> */}
-                  <div className="flex flex-col w-full gap-5">
+                  <Box className="flex flex-col w-full gap-5">
                     <Textarea
                       maxLength={100}
                       maxH="250px"
-                      maxW={{ base: "2xs", md: "md" }}
+                      maxW={{ base: "xs", md: "md" }}
                       w={"100%"}
                       onKeyDown={(e) => handlePress(e)}
                       placeholder="What's happening"
@@ -174,7 +178,10 @@ export default function HomePage() {
                         />
                       </div>
                     )}
-                    <div className="flex flex-row gap-5">
+                    <Box
+                      // maxW={{ base: "3xs", md: "md" }}
+                      className="flex flex-row gap-5"
+                    >
                       <label htmlFor="file">
                         <BsFillImageFill className="cursor-pointer" />
                       </label>
@@ -187,17 +194,17 @@ export default function HomePage() {
                       />
 
                       <BsEmojiSmile
-                        className="cursor-pointer"
+                        className="cursor-pointer mobileM:hidden tablet:block"
                         onClick={(event: any) => {
                           event.stopPropagation();
                           setShowEmojis(!showEmojis);
                         }}
                         // onClick={() => }
                       />
-                    </div>
+                    </Box>
 
                     <Button
-                      maxW={{ base: "2xs", md: "md" }}
+                      maxW={{ base: "3xs", md: "md" }}
                       isDisabled={!postText.trim() && !selectFile}
                       onClick={sendPost}
                     >
@@ -216,7 +223,7 @@ export default function HomePage() {
                         />
                       </div>
                     )}
-                  </div>
+                  </Box>
                 </div>
               </CardBody>
             </Card>

@@ -34,7 +34,7 @@ export default function EditPost({
     <>
       <Modal isCentered isOpen={isEditOpen} onClose={onEditClose}>
         {overlay}
-        <ModalContent>
+        <ModalContent maxW={{ base: "xs", md: "md" }}>
           <ModalHeader>Edit modal</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

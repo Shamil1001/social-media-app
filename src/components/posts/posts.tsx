@@ -109,7 +109,7 @@ export default function Post({ post, userData }: PostProps) {
     const updatedPosts = filteredUser.posts.filter((post: any) => {
       return post !== postId;
     });
-    console.log("filteredUser", docId);
+    console.log("filteredUser", filteredUser);
     await updateDoc(doc(db, "users", `${docId}`), {
       posts: updatedPosts,
     });
@@ -215,7 +215,7 @@ export default function Post({ post, userData }: PostProps) {
       {currentUserData &&
         (currentUserData.following.includes(post.userId) ||
           currentUserData.uid === post.userId) && (
-          <Card maxW={{ base: "sm", md: "md" }} boxShadow="2xl">
+          <Card maxW={{ base: "xs", md: "md" }} boxShadow="2xl">
             <CardHeader>
               <Flex>
                 <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
@@ -282,7 +282,7 @@ export default function Post({ post, userData }: PostProps) {
                 )}
               </Flex>
             </CardHeader>
-            <CardBody maxW={{ base: "sm", md: "md" }} w={"md"}>
+            <CardBody maxW={{ base: "xs", md: "md" }} w={"md"}>
               <p>{post.text}</p>
             </CardBody>
             {post.image && <img src={post.image} />}
@@ -339,7 +339,7 @@ export default function Post({ post, userData }: PostProps) {
               </Button>
               <Modal isCentered isOpen={isCommentOpen} onClose={onCommentClose}>
                 {overlay}
-                <ModalContent>
+                <ModalContent maxW={{ base: "xs", md: "md" }}>
                   <ModalHeader>Comments</ModalHeader>
                   <ModalCloseButton />
                   <Divider />

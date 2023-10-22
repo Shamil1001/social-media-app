@@ -26,7 +26,7 @@ export default function CommentModal({
     <>
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
         {overlay}
-        <ModalContent>
+        <ModalContent maxW={{ base: "xs", md: "md" }}>
           <ModalHeader>Delete modal</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

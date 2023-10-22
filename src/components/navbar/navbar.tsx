@@ -26,6 +26,7 @@ import {
   DrawerContent,
   CloseButton,
   BoxProps,
+  Icon,
 } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
@@ -173,7 +174,7 @@ export default function Navbar() {
         bg={useColorModeValue("gray.100", "gray.900")}
         px={4}
         width={"100%"}
-        height={isOpen ? "15%" : "100px"}
+        height={"100px"}
         minH={"14%"}
       >
         <Grid
@@ -300,7 +301,7 @@ export default function Navbar() {
                   <Avatar size={"sm"} src={`${auth.currentUser?.photoURL}`} />
                   {/* <p>{auth.currentUser?.displayName}</p> */}
                 </MenuButton>
-                <MenuList alignItems={"center"} marginLeft={"-20"}>
+                <MenuList alignItems={"center"} marginLeft={"-24"}>
                   <br />
                   <Center>
                     <Avatar
@@ -376,12 +377,17 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   ];
 
   const NavLink = ({ children }: { children: any }) => (
-    <span
-      className="text-[25px] px-2 py-1 rounded-md cursor-pointer"
+    <Flex
+      key={children.title}
+      gap={"10px"}
+      alignItems="center"
       onClick={() => router.push(`${children.link}`)}
     >
-      {children.icon}
-    </span>
+      <span className="text-[25px] px-2 py-1 rounded-md cursor-pointer">
+        {children.icon}
+      </span>
+      <label>{children.title}</label>
+    </Flex>
   );
 
   return (
@@ -401,10 +407,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       </Flex>
       <Flex direction={"column"} gap={"20px"} mx="8">
         {Links.map((link) => (
-          <Flex key={link.title} gap={"10px"} alignItems="center">
+          <>
             <NavLink>{link}</NavLink>
-            <label>{link.title}</label>
-          </Flex>
+          </>
         ))}
       </Flex>
     </Box>
