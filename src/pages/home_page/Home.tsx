@@ -48,11 +48,6 @@ export default function HomePage() {
     });
   }, []);
 
-  // const selectFile = useSelector((state: any) => {
-  //   console.log(state);
-  //   return state.home?.selectFile || null;
-  // });
-
   const pickerRef = useRef<any>(null);
 
   const addImageToPost = (e: any) => {
@@ -145,12 +140,10 @@ export default function HomePage() {
     <div className="">
       {auth.currentUser && (
         <>
-          {/* <SimpleSidebar /> */}
           <Navbar />
-          {/* <div className="flex flex-col items-center w-full mt-5 mb-14"> */}
           <Center className="flex flex-col items-center w-full mt-5 mb-14">
-            <Card maxW={"md"} boxShadow="2xl">
-              <CardBody w={"md"}>
+            <Card maxW={{ base: "sm", md: "md" }} boxShadow="2xl">
+              <CardBody w={"md"} maxW={{ base: "sm", md: "md" }}>
                 <div className="flex flex-row w-full gap-5">
                   <Avatar size={"md"} src={`${auth.currentUser?.photoURL}`} />
                   {/* <textarea placeholder=></textarea> */}
@@ -158,6 +151,7 @@ export default function HomePage() {
                     <Textarea
                       maxLength={100}
                       maxH="250px"
+                      maxW={{ base: "2xs", md: "md" }}
                       w={"100%"}
                       onKeyDown={(e) => handlePress(e)}
                       placeholder="What's happening"
@@ -202,6 +196,7 @@ export default function HomePage() {
                     </div>
 
                     <Button
+                      maxW={{ base: "2xs", md: "md" }}
                       isDisabled={!postText.trim() && !selectFile}
                       onClick={sendPost}
                     >
@@ -225,7 +220,6 @@ export default function HomePage() {
               </CardBody>
             </Card>
           </Center>
-          {/* </div> */}
 
           <Feed />
         </>

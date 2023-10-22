@@ -215,7 +215,7 @@ export default function Post({ post, userData }: PostProps) {
       {currentUserData &&
         (currentUserData.following.includes(post.userId) ||
           currentUserData.uid === post.userId) && (
-          <Card maxW="md" boxShadow="2xl">
+          <Card maxW={{ base: "sm", md: "md" }} boxShadow="2xl">
             <CardHeader>
               <Flex>
                 <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
@@ -282,7 +282,7 @@ export default function Post({ post, userData }: PostProps) {
                 )}
               </Flex>
             </CardHeader>
-            <CardBody w={"md"}>
+            <CardBody maxW={{ base: "sm", md: "md" }} w={"md"}>
               <p>{post.text}</p>
             </CardBody>
             {post.image && <img src={post.image} />}

@@ -165,19 +165,17 @@ export default function Navbar() {
   return (
     <>
       <Box
+        display={"flex"}
         alignItems={"center"}
         bg={useColorModeValue("gray.100", "gray.900")}
         px={4}
-        // width={"100%"}
-        // height={"15%"}
-        // className="mobileS:w-[calc(120%)] tablet:w-full"
+        width={"100%"}
         height={isOpen ? "15%" : "100px"}
-        // paddingTop={{ base: "30px", md: "0px" }}
-        // paddingTop={isOpen ? "0" : "30px"}
         minH={"14%"}
       >
         <Grid
-          templateColumns="repeat(3, 1fr)"
+          width={{ base: "90%", md: "100%" }}
+          templateColumns={{ base: "repeat(2, 30%)", md: "repeat(3, 30%)" }}
           alignItems={"center"}
           justifyContent={"space-between"}
         >
@@ -202,13 +200,15 @@ export default function Navbar() {
             <SearchUsers />
           </GridItem>
 
-          <GridItem>
+          <GridItem
+            display={{ base: "none", md: "flex" }}
+            justifyContent={"center"}
+          >
             <Box
               height={"100%"}
               as={"nav"}
               alignItems={"center"}
               className="flex flex-row justify-center gap-8"
-              // display={{ base: "none", md: "flex" }}
             >
               {Links.map((link) => (
                 <Box key={link.title}>
