@@ -13,9 +13,11 @@ import Messages from "../messages";
 import { useContext, useEffect } from "react";
 import { ChatContext } from "@/context/ChatContext";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { useRouter } from "next/router";
 
 export default function Chatbox({ setSidebarDisplay }: any) {
   const { data } = useContext(ChatContext);
+  const router = useRouter();
 
   return (
     <>
@@ -28,7 +30,10 @@ export default function Chatbox({ setSidebarDisplay }: any) {
             className="mobileM:h-[calc(90vh)] tablet:h-[calc(75vh)] "
           >
             <CardHeader p={3} className="flex items-center justify-between">
-              <Box className="flex items-center gap-3">
+              <Box
+                className="flex items-center gap-3"
+                onClick={() => router.push(`/friends_profile/${data.user.uid}`)}
+              >
                 <Avatar
                   name={data.user.displayName}
                   size={"md"}

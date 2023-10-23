@@ -1,7 +1,7 @@
 import { Avatar, Box } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { auth } from "../../../firebase";
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { ChatContext } from "@/context/ChatContext";
 import Image from "next/image";
 
@@ -9,10 +9,15 @@ export default function Message({ message }: any) {
   const currentUser: any = auth.currentUser;
   const { data } = useContext(ChatContext);
 
-  console.log(message);
+  const ref = useRef<any>();
+
+  useEffect(() => {
+    ref.current.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
   return (
     <>
       <div
+        ref={ref}
         className={
           message.senderId === currentUser?.uid
             ? "w-full chat chat-end"
